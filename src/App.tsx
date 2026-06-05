@@ -15,9 +15,9 @@ const App = () => {
         {/* MAIN CONTENT */}
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
           {/* <p>Primary Content - Flexible Layouts</p> */}
-          {/* <MLBConcludedGameCard /> */}
+          <MLBConcludedGameCard />
           {/* <MLBUpcomingGameCard /> */}
-          <MLBGameCard />
+          {/* <MLBGameCard /> */}
         </div>
         {/* BOTTOM DOCK */}
         {/* <div style={{borderStyle: 'solid', borderColor: 'green', height: '55px', flexShrink: 0}}>

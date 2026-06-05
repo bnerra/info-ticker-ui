@@ -25,6 +25,9 @@ const MLBUpcomingGameCard = () => {
             <p>05/23/26</p>
           </div>
           <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+            <p>@</p>
+          </div>
+          <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>12:15pm</p>
           </div>
         </div>
