@@ -45,23 +45,6 @@ const InningByInning: React.FC<BaseballScoreboardProps> = ({ awayTeam, homeTeam 
           </tr>
         </thead>
         <tbody>
-          {/* Away Team Row */}
-          <tr style={{ backgroundColor: '#1a222c', color: '#c2d9eb' }}>
-            <td style={{ padding: '10px', textAlign: 'left', border: '1px solid #ddd', fontWeight: 'bold' }}>
-              {awayTeam.name}
-            </td>
-            {inningsHeaders.map((_, index) => (
-              <td key={index} style={{ padding: '10px', border: '1px solid #ddd' }}>
-                {renderInningScore(awayTeam.innings[index])}
-              </td>
-            ))}
-            <td style={{ padding: '10px', border: '1px solid #ddd', fontWeight: 'bold', backgroundColor: '#36475c' }}>
-              {awayTeam.runs}
-            </td>
-            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{awayTeam.hits}</td>
-            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{awayTeam.errors}</td>
-          </tr>
-
           {/* Home Team Row */}
           <tr style={{ backgroundColor: '#1a222c', color: '#fdd5b1' }}>
             <td style={{ padding: '10px', textAlign: 'left', border: '1px solid #ddd', fontWeight: 'bold' }}>
@@ -77,6 +60,23 @@ const InningByInning: React.FC<BaseballScoreboardProps> = ({ awayTeam, homeTeam 
             </td>
             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{homeTeam.hits}</td>
             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{homeTeam.errors}</td>
+          </tr>
+
+          {/* Away Team Row */}
+          <tr style={{ backgroundColor: '#1a222c', color: '#c2d9eb' }}>
+            <td style={{ padding: '10px', textAlign: 'left', border: '1px solid #ddd', fontWeight: 'bold' }}>
+              {awayTeam.name}
+            </td>
+            {inningsHeaders.map((_, index) => (
+              <td key={index} style={{ padding: '10px', border: '1px solid #ddd' }}>
+                {renderInningScore(awayTeam.innings[index])}
+              </td>
+            ))}
+            <td style={{ padding: '10px', border: '1px solid #ddd', fontWeight: 'bold', backgroundColor: '#36475c' }}>
+              {awayTeam.runs}
+            </td>
+            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{awayTeam.hits}</td>
+            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{awayTeam.errors}</td>
           </tr>
         </tbody>
       </table>

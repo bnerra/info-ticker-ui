@@ -1,54 +1,61 @@
+import { mlbTeams } from "../../../data/mlbTeams"
+import type { UpcomingGameData } from "../../../types/MLB/GameData"
 
-const MLBUpcomingGameCard = () => {
+const MLBUpcomingGameCard = (values: any) => {
+  const gameData: UpcomingGameData = values.values
+
+  if (!gameData) {
+
+    return <div>Loading</div>
+  }
+
+  const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData.awayTeam.teamId)[0].logo
+  const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData.homeTeam.teamId)[0].logo
 
   return (
     <>
-      <div className='mlb-game-upcoming' style={{flex: 1, minHeight: 0, overflow: 'hidden', borderStyle: 'solid', borderColor: 'purple', display: 'grid', gridTemplateColumns: '1.5fr 1fr 1.5fr', height: '100%'}}>
+      <div className='mlb-game-upcoming' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '1.5fr 1fr 1.5fr', height: '100%'}}>
         {/* 2.4fr 0.5fr 1.6fr */}
         {/* AWAY TEAM INFO */}
         <div style={{display: 'grid', gridTemplateRows: '1.8fr 0.5fr 1fr', backgroundColor: '#1a222c'}}>
           <div style={{alignContent: 'center'}}>
-            <img src='src\assets\MlbTeamLogos\stl.png' style={{width: '55%', height: 'auto', marginTop: '5px'}} />
+            <img src={awayLogo} style={{width: '55%', height: 'auto', marginTop: '5px'}} />
           </div>
           <div style={{alignContent: 'center', fontSize: '50px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
-            (28-21)
+            ({gameData.awayTeam.record.wins}-{gameData.awayTeam.record.losses})
           </div>
           <div style={{display: 'grid', rowGap: '20px', alignContent: 'center', fontSize: '35px', fontFamily: 'inter', color: '#9aa4b2'}}>
-            <p>M. Liberatore (LHP)</p>
-            <p>2-2, 4.70 ERA</p>
+            <p>{gameData.awayTeam.probablePitcher.name} ({gameData.awayTeam.probablePitcher.hand}HP)</p>
+            <p>{gameData.awayTeam.probablePitcher.wins}-{gameData.awayTeam.probablePitcher.losses}, {gameData.awayTeam.probablePitcher.era} ERA</p>
           </div>
         </div>
 
         {/* LINESCORE */}
         <div style={{display: 'grid', rowGap: '80px', alignContent: 'center', backgroundColor: '#1a222c'}}>
-          <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
-            <p>05/23/26</p>
+          <div style={{fontSize: '62px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+            <p>{gameData.metaData.date}</p>
           </div>
           <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>@</p>
           </div>
           <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
-            <p>12:15pm</p>
+            <p>{gameData.metaData.time}</p>
           </div>
         </div>
 
         {/* HOME TEAM INFO */}
         <div style={{display: 'grid', gridTemplateRows: '1.8fr 0.5fr 1fr', backgroundColor: '#1a222c'}}>
           <div style={{alignContent: 'center'}}>
-            <img src='src\assets\MlbTeamLogos\cin.png' style={{width: '55%', height: 'auto', marginTop: '5px'}} />
+            <img src={homeLogo} style={{width: '55%', height: 'auto', marginTop: '5px'}} />
           </div>
           <div style={{alignContent: 'center', fontSize: '50px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
-            (26-24)
+            ({gameData.homeTeam.record.wins}-{gameData.homeTeam.record.losses})
           </div>
           <div style={{display: 'grid', rowGap: '20px', alignContent: 'center', fontSize: '35px', fontFamily: 'inter', color: '#9aa4b2'}}>
-            <p>N. Lodolo (LHP)</p>
-            <p>0-1, 7.20 ERA</p>
+            <p>{gameData.homeTeam.probablePitcher.name} ({gameData.homeTeam.probablePitcher.hand}HP)</p>
+            <p>{gameData.homeTeam.probablePitcher.wins}-{gameData.homeTeam.probablePitcher.losses}, {gameData.homeTeam.probablePitcher.era} ERA</p>
           </div>
         </div>
-
-      </div>
-      <div style={{borderStyle: 'solid', borderColor: 'purple', height: '140px', flexShrink: 0}}>
-        <p>Secondary Module Full Width</p>
       </div>
     </>
   )

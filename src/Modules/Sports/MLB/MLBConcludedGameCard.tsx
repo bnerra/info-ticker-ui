@@ -1,21 +1,20 @@
-import { mlbTeams } from "../../../data/mlbTeams"
-import { useLiveGames } from "../../../hooks/useLiveGames"
+import DivisionStandings, { type TeamStanding } from '../../../Components/DivisionStandings'
+import { mlbTeams } from '../../../data/mlbTeams'
 
-const MLBConcludedGameCard = () => {
+const MLBConcludedGameCard = (values: any) => {
+  const gameData = values.values
 
-  const {
-      games,
-      connected
-    } = useLiveGames()
-  
-    console.log({ games })
+  if (!gameData) {
 
-  const awayLogo = mlbTeams.filter((team: any) => team.appId === games.lastGame.awayTeam.teamId)[0].logo
-  const homeLogo = mlbTeams.filter((team: any) => team.appId === games.lastGame.homeTeam.teamId)[0].logo
+    return <div>Loading</div>
+  }
+
+  const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData.awayTeam.teamId)[0].logo
+  const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData.homeTeam.teamId)[0].logo
 
   return (
     <>
-      <div className='mlb-game-concluded' style={{flex: 1, minHeight: 0, overflow: 'hidden', borderStyle: 'solid', borderColor: 'purple', display: 'grid', gridTemplateColumns: '2fr 0.5fr 2fr', height: '100%'}}>
+      <div className='mlb-game-concluded' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '2fr 0.5fr 2fr', height: '100%'}}>
           
           {/* AWAY TEAM INFO */}
           <div style={{display: 'grid', gridTemplateColumns: '2.2fr 1.2fr', backgroundColor: '#1a222c'}}>
@@ -24,11 +23,11 @@ const MLBConcludedGameCard = () => {
                 <img src={awayLogo} style={{width: '90%', height: 'auto'}} />
               </div>
               <div style={{fontSize: '65px', fontFamily: 'sans-serif', color: '#f5f7fa', marginTop: '20px'}}>
-                ({games.lastGame.awayTeam.record.wins}-{games.lastGame.awayTeam.record.losses})
+                ({gameData.awayTeam.record.wins}-{gameData.awayTeam.record.losses})
               </div>
             </div>
             <div style={{alignContent: 'center', fontSize: '125px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
-              {games.lastGame.awayTeam.score}
+              {gameData.awayTeam.score}
             </div>
           </div>
 
@@ -39,28 +38,24 @@ const MLBConcludedGameCard = () => {
               <p>Final</p>
             </div>
             <div style={{fontSize: '40px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '50px'}}>
-              <p>{games.lastGame.metaData.date}</p>
+              <p>{gameData.metaData.date}</p>
             </div>
           </div>
 
           {/* HOME TEAM INFO */}
           <div style={{display: 'grid', gridTemplateColumns: '1.2fr 2.2fr', backgroundColor: '#1a222c'}}>
             <div style={{alignContent: 'center', fontSize: '125px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
-              {games.lastGame.homeTeam.score}
+              {gameData.homeTeam.score}
             </div>
             <div style={{display: 'grid', backgroundColor: '#1a222c'}}>
               <div style={{alignContent: 'center'}}>
                 <img src={homeLogo} style={{width: '90%', height: 'auto'}} />
               </div>
               <div style={{fontSize: '65px', fontFamily: 'sans-serif', color: '#f5f7fa', marginTop: '20px'}}>
-                ({games.lastGame.homeTeam.record.wins}-{games.lastGame.homeTeam.record.losses})
+                ({gameData.homeTeam.record.wins}-{gameData.homeTeam.record.losses})
               </div>
             </div>
           </div>
-
-      </div>
-      <div style={{borderStyle: 'solid', borderColor: 'purple', height: '140px', flexShrink: 0}}>
-        <p>Secondary Module Full Width</p>
       </div>
     </>
   )

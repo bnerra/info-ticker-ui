@@ -2,31 +2,31 @@ import * as React from 'react'
 
 // Structure for each of the 5 teams
 export interface TeamStanding {
-  abbreviation: string; // e.g., 'STL', 'MIL', 'CHC'
+  abbreviation: string
   wins: number;
   losses: number;
-  gamesBack: number | '-'; // Pass numeric games back, or '-' explicitly for 1st place
+  gamesBack: number | '-'
 }
 
 interface DivisionStandingsProps {
   divisionName: string
-  teams: [TeamStanding, TeamStanding, TeamStanding, TeamStanding, TeamStanding]; // Exactly 5 teams
+  teams: TeamStanding[]
 }
 
 const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, teams }) => {
 
    // Auto-sort the array based on overall win percentage before rendering
-  const sortedTeams = [...teams].sort((a, b) => {
-    const winPctA = a.wins / (a.wins + a.losses || 1);
-    const winPctB = b.wins / (b.wins + b.losses || 1);
-    return winPctB - winPctA;
-  });
+  // const sortedTeams = [...teams].sort((a, b) => {
+  //   const winPctA = a.wins / (a.wins + a.losses || 1);
+  //   const winPctB = b.wins / (b.wins + b.losses || 1);
+  //   return winPctB - winPctA;
+  // });
 
   // Helper to format games back to one decimal place if it's a number
-  const formatGB = (gb: number | '-') => {
-    if (gb === '-') return '-';
-    return gb.toFixed(1);
-  };
+  // const formatGB = (gb: number | '-') => {
+  //   if (gb === '-') return '-';
+  //   return gb.toFixed(1);
+  // };
 
   const styles = {
     container: {
@@ -115,7 +115,7 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
 
       {/* Standings Grid */}
       <div style={styles.gridContainer}>
-        {sortedTeams.slice(0, 5).map((team, index) => {
+        {teams.slice(0, 5).map((team, index) => {
           const place = index + 1;
           const isLast = place === 5;
 
@@ -134,7 +134,7 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
                 <div style={styles.teamAbbr}>{team.abbreviation.toUpperCase()}</div>
                 <div style={styles.statsRow}>
                   {team.wins}-{team.losses}
-                  <span style={styles.gbText}>({formatGB(team.gamesBack)})</span>
+                  <span style={styles.gbText}>({team.gamesBack})</span>
                 </div>
               </div>
             </div>

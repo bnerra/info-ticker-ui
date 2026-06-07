@@ -131,8 +131,12 @@ const MLBGameCard = () => {
 
         {/* LINESCORE */}
         <div style={{display: 'grid', gridTemplateRows: '1fr 1.25fr 1fr', backgroundColor: '#1a222c'}}>
-          <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa', display: 'flex', flexDirection: 'column', gap: '35px', marginTop: '10px'}}>
-            <div style={{fontSize: '30px'}}>Live</div>
+          <div style={{fontSize: '62px', fontFamily: 'Rajdhani', color: '#f5f7fa', display: 'flex', flexDirection: 'column', gap: '35px', marginTop: '10px'}}>
+            {/* <div style={{fontSize: '30px'}}>Live</div> */}
+            <div className="live-dot-container">
+              <div className="live-dot" />
+              <span style={{ fontWeight: 'bold', color: 'white', fontSize: '28px' }}>LIVE</span>
+            </div>
             <p>Top 4</p>
           </div>
           <div>
