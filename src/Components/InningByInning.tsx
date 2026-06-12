@@ -17,7 +17,7 @@ interface BaseballScoreboardProps {
 
 const InningByInning: React.FC<BaseballScoreboardProps> = ({ awayTeam, homeTeam }) => {
   // Determine total innings to display (minimum of 9, or maximum played in case of extra innings)
-  const totalInningsToDisplay = Math.max(9, awayTeam.innings.length, homeTeam.innings.length)
+  const totalInningsToDisplay = Math.max(9, awayTeam?.innings?.length, homeTeam?.innings?.length)
   
   // Generate headers array (e.g., [1, 2, 3, ..., 9, 10...])
   const inningsHeaders = Array.from({ length: totalInningsToDisplay }, (_, i) => i + 1)

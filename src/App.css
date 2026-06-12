@@ -183,6 +183,45 @@
   }
 }
 
+.weather-details {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* font-size: 12px; */
+  /* justify-content: end; */
+  /* padding-right: 10px; */
+}
+
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  justify-content: end;
+  padding-right: 10px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-dot.good {
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+.status-dot.warning {
+  background: #eab308;
+  box-shadow: 0 0 6px #eab308;
+}
+
+.status-dot.error {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
 .live-dot-container {
   justify-content: center;
   display: flex;

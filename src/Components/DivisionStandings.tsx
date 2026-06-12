@@ -115,7 +115,7 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
 
       {/* Standings Grid */}
       <div style={styles.gridContainer}>
-        {teams.slice(0, 5).map((team, index) => {
+        {teams?.slice(0, 5).map((team, index) => {
           const place = index + 1;
           const isLast = place === 5;
 

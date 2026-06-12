@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { useLiveGames } from './hooks/useLiveGames'
 import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
-import MLBGameCard from './Modules/Sports/MLB/MLBGameCard'
 import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
 import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
 import DivisionStandings, { type TeamStanding } from './Components/DivisionStandings'
 import { mlbTeams } from './data/mlbTeams'
 import InningByInning, { type TeamScore } from './Components/InningByInning'
+import { weatherIcons } from './data/weatherIcons'
 
 const App = () => {
   const {
@@ -15,15 +15,45 @@ const App = () => {
     connected
   } = useLiveGames()
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  // const [liveData, setLiveData]: any = useState(games)
+  const { weatherDateTime } = games
 
-  console.log({connected, games})
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentSecondIndex, setCurrentSecondIndex] = useState(0)
+
+  const ageSeconds = Math.floor(
+    (Date.now() - games.lastUpdated) / 1000
+  )
+
+  console.log({connected, games, ageSeconds})
+
+  const formattedStandings = () => {
+    const abbMap = new Map(
+      mlbTeams.map((item: any) => [item.appId, item.abbreviation])
+    )
+
+    return games?.divisionStandings?.standings.map((team: any) => ({
+      ...team,
+      abbreviation: abbMap.get(team.teamId)
+    }))
+  }
+
+  const divisionName = games?.divisionStandings?.divisionName || 'NLC'
 
 
   const components = [
     <MLBConcludedGameCard values={games.lastGame} />,
     <MLBUpcomingGameCard values={games.nextGame} />
+  ]
+
+  const secondaryComponents = [
+    <DivisionStandings
+      divisionName={divisionName}
+      teams={formattedStandings()}
+    />,
+    <InningByInning
+      awayTeam={games?.inningByInning?.homeInnings || [null]}
+      homeTeam={games?.inningByInning?.awayInnings || [null]}
+    />
   ]
 
   useEffect(() => {
@@ -36,49 +66,97 @@ const App = () => {
     return () => clearInterval(interval);
   }, [components.length])
 
-  const ActiveComponent = components[currentIndex]
+  useEffect(() => {
+    // Set up the interval for 10 seconds (10000 milliseconds)
+    const interval = setInterval(() => {
+      setCurrentSecondIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length);
+    }, 10000);
 
-  const formattedStandings = () => {
-    const abbMap = new Map(
-      mlbTeams.map((item: any) => [item.appId, item.abbreviation])
-    )
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, [secondaryComponents.length])
 
-    return games.divisionStandings.standings.map((team: any) => ({
-      ...team,
-      abbreviation: abbMap.get(team.teamId)
-    }))
-  }
-
-  // const divisionName = games.divisionStandings.divisionName
-
-  const away: TeamScore = {
-    name: 'STL',
-    // 11 elements: Inning 11 is currently active, 12+ are unplayed
-    innings: [0, 2, 0, 1, 0, 0, 0, 0, 1, 0, 2, null, null],
-    // innings: [0, 2, 0, 1, 0, 0, 0, 0, 1],
-    runs: 6,
-    hits: 11,
-    errors: 0,
-  }
-  
-    const home: TeamScore = {
-      name: 'CIN',
-      // Bottom of the 11th hasn't happened yet (null), 12+ are unplayed
-      innings: [1, 0, 0, 0, 3, 0, 0, 0, 0, 0, null, null],
-      // innings: [1, 0, 0, 0, 3, 0, 0, 0, 0],
-      runs: 4,
-      hits: 9,
-      errors: 2,
+  const getWeatherIcon = (code: number) => {
+    switch (code) {
+      case 0:
+        return weatherIcons['clear']
+      case 1:
+        return weatherIcons['partlyCloudy']
+      case 2:
+        return weatherIcons['mostlyCloudy']
+      case 3:
+        return weatherIcons['cloudy']
+      case 45:
+        return weatherIcons['foggy']
+      case 51:
+      case 53:
+      case 55:
+        return weatherIcons['raindrops']
+      case 56:
+      case 57:
+      case 66:
+      case 67:
+        return weatherIcons['freezingRain']
+      case 61:
+      case 63:
+      case 65:
+        return weatherIcons['rain']
+      case 71:
+      case 73:
+      case 75:
+      case 77:
+        return weatherIcons['snow']
+      case 80:
+      case 81:
+      case 82:
+        return weatherIcons['rainShower']
+      case 85:
+      case 86:
+        return weatherIcons['snowShower']
+      case 95:
+        return weatherIcons['thunderstorm']
+      case 57:
+        return weatherIcons['heavyThunderstorm']
+      case 56:
+        return weatherIcons['hailstorm']
+    
+      default:
+        return weatherIcons['cloudy']
     }
+  }
+
+  const ActiveComponent = components[currentIndex]
+  const ActiveSecondaryComponent = secondaryComponents[currentSecondIndex]
+
+  const statusHealth =
+    ageSeconds < 60
+      ? 'good'
+      : ageSeconds < 240
+      ? 'warning'
+      : 'error'
 
   return (
     <>
       <div className='container' style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
         {/* TOP BAR */}
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', backgroundColor: '#1a222c', height: '50px', flexShrink: 0, alignContent: 'center'}}>
-          <p style={{textAlign: 'left'}}>[icon] 82dF Mostly Sunny</p>
-          <p>Sat Jun 7 d 10:34 PM</p>
-          <p style={{textAlign: 'right'}}>[icon] API Delayed</p>
+        <div style={{ fontSize: '18px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', backgroundColor: '#1a222c', height: '50px', flexShrink: 0, alignContent: 'center'}}>
+          <div className='weather-details'>
+            <img
+              color='white'
+              style={{filter: 'brightness(0) saturate(100%) invert(44%) sepia(10%) saturate(601%) hue-rotate(224deg) brightness(91%) contrast(93%)'}}
+              src={getWeatherIcon(games?.weatherDateTime?.weatherCode)}
+              alt=''
+              width={34}
+              height={34}
+            />
+            <p style={{textAlign: 'left'}}> {weatherDateTime?.temperature} | {weatherDateTime?.forecast}</p>
+          </div>
+          <p>{weatherDateTime?.date} {`\u00B7`} {weatherDateTime?.time}</p>
+          <div className='api-status'>
+            {/* <div className={`status-dot status-${getAPIStatus(ageSeconds)}`}></div> */}
+            <div className={`status-dot ${statusHealth}`}></div>
+            <span>{ageSeconds}s</span>
+          </div>
         </div>
         {/* MAIN CONTENT */}
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
@@ -94,15 +172,26 @@ const App = () => {
         </div>
         {/* BOTTOM DOCK */}
         <div style={{height: '140px', flexShrink: 0}}>
+          <InningByInning
+            awayTeam={games?.inningByInning?.homeInnings || [null]}
+            homeTeam={games?.inningByInning?.awayInnings || [null]}
+          />
+          {/* {ActiveSecondaryComponent} */}
           {/* <DivisionStandings
             divisionName={divisionName}
             // divisionName='NL Central'
             teams={formattedStandings()}
           /> */}
-          <InningByInning
-            awayTeam={games.inningByInning.homeInnings}
-            homeTeam={games.inningByInning.awayInnings}
-          />
+          {/* {
+            (connected && games.inningByInning)
+            ? (
+              <InningByInning
+                awayTeam={games?.inningByInning.homeInnings || [null]}
+                homeTeam={games.inningByInning.awayInnings || [null]}
+              />
+            )
+            : <></>
+          } */}
         </div>
       </div>
     </>

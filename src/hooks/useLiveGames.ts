@@ -1,18 +1,8 @@
 import { useEffect, useState } from 'react'
 
-export interface GameData {
-  gamePk: number
-  homeTeam: string
-  awayTeam: string
-  homeScore: number
-  awayScore: number
-  inning: number
-  inningHalf: 'Top' | 'Bot'
-}
-
 export function useLiveGames() {
   const [games, setGames] = useState<any>([])
-  const [connected, setConnected] = useState(false)
+  const [connected, setConnected] = useState<any>(false)
 
   useEffect(() => {
     const eventSource = new EventSource('http://localhost:3000/api/live-games')
@@ -25,8 +15,11 @@ export function useLiveGames() {
       setGames(JSON.parse(event.data))
     }
 
-    eventSource.onerror = () => {
-      setConnected(false)
+    eventSource.onerror = (error: any) => {
+      setConnected({
+        connected: false,
+        message: error,
+      })
     }
 
     return () => {

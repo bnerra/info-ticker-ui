@@ -55,7 +55,7 @@ const MLBCurrentGame = (values: any) => {
           </div>
           <div style={{alignContent: 'end', marginBottom: '10px', fontSize: '32px', fontFamily: 'inter', color: '#9aa4b2'}}>
             {gameData.metaData.isTopInning
-              ? <>{gameData.metaData.batter.number}. {gameData.metaData.batter.name} {gameData.metaData.batter.average}</>
+              ? <>{gameData.metaData.batter.number}. {gameData.metaData.batter.name} &nbsp;{gameData.metaData.batter.average}</>
               : <>{gameData.metaData.pitcher.name} &nbsp;P:{gameData.metaData.pitcher.pitchCount}</>
               }
           </div>
@@ -89,7 +89,7 @@ const MLBCurrentGame = (values: any) => {
           </div>
           <div style={{alignContent: 'end', marginBottom: '10px', fontSize: '32px', fontFamily: 'inter', color: '#9aa4b2'}}>
             {!gameData.metaData.isTopInning
-              ? <>{gameData.metaData.batter.number}. {gameData.metaData.batter.name} {gameData.metaData.batter.average}</>
+              ? <>{gameData.metaData.batter.number}. {gameData.metaData.batter.name} &nbsp;{gameData.metaData.batter.average}</>
               : <>{gameData.metaData.pitcher.name} &nbsp;P:{gameData.metaData.pitcher.pitchCount}</>
               }
           </div>

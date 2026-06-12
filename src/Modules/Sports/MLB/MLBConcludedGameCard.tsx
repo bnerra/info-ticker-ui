@@ -9,8 +9,8 @@ const MLBConcludedGameCard = (values: any) => {
     return <div>Loading</div>
   }
 
-  const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData.awayTeam.teamId)[0].logo
-  const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData.homeTeam.teamId)[0].logo
+  const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData?.awayTeam?.teamId)[0].logo
+  const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData?.homeTeam?.teamId)[0].logo
 
   return (
     <>
