@@ -32,13 +32,13 @@ const MLBUpcomingGameCard = (values: any) => {
 
         {/* LINESCORE */}
         <div style={{display: 'grid', rowGap: '80px', alignContent: 'center', backgroundColor: '#1a222c'}}>
-          <div style={{fontSize: '62px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+          <div style={{fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>{gameData.metaData.date}</p>
           </div>
           <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>@</p>
           </div>
-          <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+          <div style={{fontSize: '64px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>{gameData.metaData.time}</p>
           </div>
         </div>

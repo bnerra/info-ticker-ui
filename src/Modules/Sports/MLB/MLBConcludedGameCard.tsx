@@ -1,4 +1,3 @@
-import DivisionStandings, { type TeamStanding } from '../../../Components/DivisionStandings'
 import { mlbTeams } from '../../../data/mlbTeams'
 
 const MLBConcludedGameCard = (values: any) => {
@@ -32,13 +31,12 @@ const MLBConcludedGameCard = (values: any) => {
           </div>
 
           {/* LINESCORE */}
-
-          <div style={{alignContent: 'center', display: 'grid', backgroundColor: '#1a222c'}}>
-            <div style={{fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '80px'}}>
-              <p>Final</p>
-            </div>
-            <div style={{fontSize: '40px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '50px'}}>
+          <div style={{backgroundColor: '#1a222c'}}>
+            <div style={{paddingBottom: '30px', fontSize: '30px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '55px'}}>
               <p>{gameData.metaData.date}</p>
+            </div>
+            <div style={{transform: 'rotate(-90deg)', fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '80px'}}>
+              <p>Final</p>
             </div>
           </div>
 

@@ -70,7 +70,7 @@ const App = () => {
     // Set up the interval for 10 seconds (10000 milliseconds)
     const interval = setInterval(() => {
       setCurrentSecondIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length);
-    }, 10000);
+    }, 5000);
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(interval);
@@ -139,7 +139,7 @@ const App = () => {
     <>
       <div className='container' style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
         {/* TOP BAR */}
-        <div style={{ fontSize: '18px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', backgroundColor: '#1a222c', height: '50px', flexShrink: 0, alignContent: 'center'}}>
+        <div style={{ fontSize: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', backgroundColor: '#1a222c', height: '50px', flexShrink: 0, alignContent: 'center'}}>
           <div className='weather-details'>
             <img
               color='white'
@@ -153,7 +153,6 @@ const App = () => {
           </div>
           <p>{weatherDateTime?.date} {`\u00B7`} {weatherDateTime?.time}</p>
           <div className='api-status'>
-            {/* <div className={`status-dot status-${getAPIStatus(ageSeconds)}`}></div> */}
             <div className={`status-dot ${statusHealth}`}></div>
             <span>{ageSeconds}s</span>
           </div>
@@ -161,22 +160,23 @@ const App = () => {
         {/* MAIN CONTENT */}
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
           {/* <MLBConcludedGameCard values={games.lastGame} /> */}
+          <MLBUpcomingGameCard values={games.nextGame} />
           {/* {games.viewStatus === 'CONCLUDED'
             && <MLBConcludedGameCard values={games.lastGame} />}
           {games.viewStatus === 'UPCOMING'
             && <MLBUpcomingGameCard values={games.nextGame} />} */}
           {/* <MLBGameCard /> */}
-          {games.viewStatus === 'IN_PROGRESS'
+          {/* {games.viewStatus === 'IN_PROGRESS'
             ? <MLBCurrentGame values={games.currentGame} />
-            : ActiveComponent}
+            : ActiveComponent} */}
         </div>
         {/* BOTTOM DOCK */}
         <div style={{height: '140px', flexShrink: 0}}>
-          <InningByInning
+          {/* <InningByInning
             awayTeam={games?.inningByInning?.homeInnings || [null]}
             homeTeam={games?.inningByInning?.awayInnings || [null]}
-          />
-          {/* {ActiveSecondaryComponent} */}
+          /> */}
+          {ActiveSecondaryComponent}
           {/* <DivisionStandings
             divisionName={divisionName}
             // divisionName='NL Central'
