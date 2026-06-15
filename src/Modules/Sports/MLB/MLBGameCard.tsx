@@ -1,9 +1,5 @@
 import BaseballDiamond from '../../../Components/BaseballDiamond'
-import BattingLeaders, { type DynamicBatterData } from '../../../Components/BattingLeaders'
-import DivisionStandings, { type TeamStanding } from '../../../Components/DivisionStandings'
 import InningByInning, { type TeamScore } from '../../../Components/InningByInning'
-import type { DynamicPitcherData } from '../../../Components/PitchingLeaders'
-import PitchingLeaders from '../../../Components/PitchingLeaders'
 
 const MLBGameCard = () => {
   const currentBases = {
@@ -33,17 +29,17 @@ const MLBGameCard = () => {
     errors: 2,
   }
 
-  const team1: DynamicBatterData[] = [
-    { name: 'Gunnar Henderson', ab: 3, h: 2, rbi: 1, hr: 1 },
-    { name: 'Adley Rutschman', ab: 2, h: 0, bb: 1, r: 1 }
-  ];
+  // const team1: DynamicBatterData[] = [
+  //   { name: 'Gunnar Henderson', ab: 3, h: 2, rbi: 1, hr: 1 },
+  //   { name: 'Adley Rutschman', ab: 2, h: 0, bb: 1, r: 1 }
+  // ];
 
-  const team2: DynamicBatterData[] = [
-    { name: 'Aaron Judge', ab: 2, h: 1, hr: 1, rbi: 2 },
-    { name: 'Juan Soto', ab: 3, h: 1, double: 1, bb: 0 }
-  ]
+  // const team2: DynamicBatterData[] = [
+  //   { name: 'Aaron Judge', ab: 2, h: 1, hr: 1, rbi: 2 },
+  //   { name: 'Juan Soto', ab: 3, h: 1, double: 1, bb: 0 }
+  // ]
 
-  const pitching1: DynamicPitcherData[] = [
+  // const pitching1: DynamicPitcherData[] = [
     // UPCOMING STATS
   //  {
   //   name: 'Tarik Skubal',
@@ -63,15 +59,15 @@ const MLBGameCard = () => {
     //   k: 12,
     // },
       // CONCLUDED STATS
-    {
-      name: 'Tarik Skubal',
-      record: '7-2',
-      era: 2.38,
-      isLoser: true,
-    },
-  ]
+  //   {
+  //     name: 'Tarik Skubal',
+  //     record: '7-2',
+  //     era: 2.38,
+  //     isLoser: true,
+  //   },
+  // ]
 
-  const pitching2: DynamicPitcherData[] = [
+  // const pitching2: DynamicPitcherData[] = [
     // UPCOMING STATS
   // {
   //   name: 'Corbin Burnes',
@@ -81,14 +77,14 @@ const MLBGameCard = () => {
   //   whip: 1.05
   // },
     // IN GAME STATS
-  {
-    name: 'Corbin Burnes',
-    ip: 6.3,
-    p: 82,
-    h: 9,
-    er: 1,
-    k: 18,
-  },
+  // {
+  //   name: 'Corbin Burnes',
+  //   ip: 6.3,
+  //   p: 82,
+  //   h: 9,
+  //   er: 1,
+  //   k: 18,
+  // },
     // CONCLUDED STATS
     // {
     //   name: 'Corbin Burnes',
@@ -102,15 +98,7 @@ const MLBGameCard = () => {
     //   era: 1.95,
     //   isSave: true,
     // }
-  ]
-
-  const nlCentral: [TeamStanding, TeamStanding, TeamStanding, TeamStanding, TeamStanding] = [
-    { abbreviation: 'CHC', wins: 26, losses: 26, gamesBack: 5 },
-    { abbreviation: 'MIL', wins: 31, losses: 21, gamesBack: '-' },
-    { abbreviation: 'CIN', wins: 22, losses: 30, gamesBack: 9.0 },
-    { abbreviation: 'STL', wins: 29, losses: 22, gamesBack: 1.5 },
-    { abbreviation: 'PIT', wins: 25, losses: 27, gamesBack: 6 }
-  ]
+  // ]
 
   return (
     <>

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import BaseballDiamond from '../../../Components/BaseballDiamond'
-import DivisionStandings, { type TeamStanding } from '../../../Components/DivisionStandings'
 import { mlbTeams } from '../../../data/mlbTeams'
 import type { CurrentGameData } from '../../../types/MLB/GameData'
 
@@ -15,11 +14,11 @@ const MLBCurrentGame = (values: any) => {
   useEffect(() => {
   }, [gameData])
 
-  console.log({
-    balls: gameData.metaData.count.balls,
-    strikes: gameData.metaData.count.strikes,
-    outs: gameData.metaData.count.outs
-  })
+  // console.log({
+  //   balls: gameData.metaData.count.balls,
+  //   strikes: gameData.metaData.count.strikes,
+  //   outs: gameData.metaData.count.outs
+  // })
 
   const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData.awayTeam.teamId)[0].logo
   const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData.homeTeam.teamId)[0].logo
@@ -30,16 +29,6 @@ const MLBCurrentGame = (values: any) => {
     third: gameData.metaData.runners.third,
     home: false
   }
-
-  const nlCentral: TeamStanding[] = [
-      { abbreviation: 'CHC', wins: 26, losses: 26, gamesBack: 5 },
-      { abbreviation: 'MIL', wins: 31, losses: 21, gamesBack: '-' },
-      { abbreviation: 'CIN', wins: 22, losses: 30, gamesBack: 9.0 },
-      { abbreviation: 'STL', wins: 29, losses: 22, gamesBack: 1.5 },
-      { abbreviation: 'PIT', wins: 25, losses: 27, gamesBack: 6 }
-    ]
-
-  
 
   return (
     <>

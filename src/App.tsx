@@ -4,9 +4,9 @@ import { useLiveGames } from './hooks/useLiveGames'
 import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
 import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
 import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
-import DivisionStandings, { type TeamStanding } from './Components/DivisionStandings'
+import DivisionStandings from './Components/DivisionStandings'
 import { mlbTeams } from './data/mlbTeams'
-import InningByInning, { type TeamScore } from './Components/InningByInning'
+import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
 
 const App = () => {

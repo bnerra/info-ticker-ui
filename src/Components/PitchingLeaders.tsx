@@ -8,8 +8,8 @@ export interface DynamicPitcherData {
 }
 
 interface PitcherMatchupProps {
-  leftSidePitchers: DynamicPitcherData[] // Exactly two batters for the left column
-  rightSidePitchers: DynamicPitcherData[] // Exactly two batters for the right column
+  leftSidePitchers: DynamicPitcherData[] // Exactly two pitchers for the left column
+  rightSidePitchers: DynamicPitcherData[] // Exactly two pitchers for the right column
 }
 
 const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, rightSidePitchers }) => {
@@ -22,23 +22,23 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
   };
 
   // Helper to render a batter row block with their corresponding dynamic stats
-  const renderPitcherBlock = (batter: DynamicPitcherData, alignment: 'left' | 'right') => {
-    const statKeys = Object.keys(batter).filter(key => key !== 'name' && key !== 'isWinner' && key !== 'isSave' && key !== 'isLoser');
+  const renderPitcherBlock = (pitcher: DynamicPitcherData, alignment: 'left' | 'right') => {
+    const statKeys = Object.keys(pitcher).filter(key => key !== 'name' && key !== 'isWinner' && key !== 'isSave' && key !== 'isLoser');
     const isRightAligned = alignment === 'left'; // Left column content aligns right towards the center divider
 
     return (
       <div style={styles.pitcherBlock}>
         <div style={isRightAligned ? styles.nameLeft : styles.nameRight}>
-          {batter.isWinner && 'W : '}
-          {batter.isSave && 'S : '}
-          {batter.isLoser && 'L : '}
-          {formatName(batter.name)}
+          {pitcher.isWinner && 'W : '}
+          {pitcher.isSave && 'S : '}
+          {pitcher.isLoser && 'L : '}
+          {formatName(pitcher.name)}
         </div>
         <div style={{ ...styles.statRow, justifyContent: isRightAligned ? 'flex-end' : 'flex-start' }}>
           {statKeys.map((key) => (
             <div key={key} style={styles.statCell}>
               <span style={styles.label}>{key !== 'record' && key}</span>
-              <span style={styles.value}>{batter[key]}</span>
+              <span style={styles.value}>{pitcher[key]}</span>
             </div>
           ))}
         </div>
