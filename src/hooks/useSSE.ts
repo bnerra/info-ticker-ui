@@ -9,9 +9,7 @@ export function useSSE<T>(url: string) {
 
     eventSource.onmessage = (event) => {
       try {
-        console.log({event})
         const parsed = JSON.parse(event.data) as T
-        console.log({parsed})
         setData((prev) => [...prev, parsed])
       } catch (err) {
         console.error('Failed to parse SSE payload', err)
