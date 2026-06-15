@@ -5,7 +5,7 @@ export function useLiveGames() {
   const [connected, setConnected] = useState<any>(false)
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:3000/api/live-games')
+    const eventSource = new EventSource('http://127.0.0.1:3000/api/live-games')
 
     eventSource.onopen = () => {
       setConnected(true)
