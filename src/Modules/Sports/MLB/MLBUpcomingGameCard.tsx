@@ -9,8 +9,8 @@ const MLBUpcomingGameCard = (values: any) => {
     return <div>Loading</div>
   }
 
-  const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData.awayTeam.teamId)[0].logo
-  const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData.homeTeam.teamId)[0].logo
+  const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData?.awayTeam?.teamId)[0].logo || ''
+  const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData?.homeTeam?.teamId)[0].logo || ''
 
   return (
     <>
@@ -32,13 +32,13 @@ const MLBUpcomingGameCard = (values: any) => {
 
         {/* LINESCORE */}
         <div style={{display: 'grid', rowGap: '80px', alignContent: 'center', backgroundColor: '#1a222c'}}>
-          <div style={{fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+          <div style={{fontSize: '55px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>{gameData.metaData.date}</p>
           </div>
           <div style={{fontSize: '65px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>@</p>
           </div>
-          <div style={{fontSize: '64px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+          <div style={{fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>{gameData.metaData.time}</p>
           </div>
         </div>

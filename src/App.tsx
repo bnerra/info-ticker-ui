@@ -160,15 +160,15 @@ const App = () => {
         {/* MAIN CONTENT */}
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
           {/* <MLBConcludedGameCard values={games.lastGame} /> */}
-          <MLBUpcomingGameCard values={games.nextGame} />
+          {/* <MLBUpcomingGameCard values={games.nextGame} /> */}
           {/* {games.viewStatus === 'CONCLUDED'
             && <MLBConcludedGameCard values={games.lastGame} />}
           {games.viewStatus === 'UPCOMING'
             && <MLBUpcomingGameCard values={games.nextGame} />} */}
           {/* <MLBGameCard /> */}
-          {/* {games.viewStatus === 'IN_PROGRESS'
+          {games.viewStatus === 'IN_PROGRESS'
             ? <MLBCurrentGame values={games.currentGame} />
-            : ActiveComponent} */}
+            : ActiveComponent}
         </div>
         {/* BOTTOM DOCK */}
         <div style={{height: '140px', flexShrink: 0}}>
