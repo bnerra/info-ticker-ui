@@ -1,13 +1,13 @@
-// import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { useLiveGames } from './hooks/useLiveGames'
-// import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
-// import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
-// import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
-// import DivisionStandings from './Components/DivisionStandings'
-// import { mlbTeams } from './data/mlbTeams'
-// import InningByInning from './Components/InningByInning'
-// import { weatherIcons } from './data/weatherIcons'
+import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
+import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
+import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
+import DivisionStandings from './Components/DivisionStandings'
+import { mlbTeams } from './data/mlbTeams'
+import InningByInning from './Components/InningByInning'
+import { weatherIcons } from './data/weatherIcons'
 
 const App = () => {
   const {
@@ -15,10 +15,10 @@ const App = () => {
     connected
   } = useLiveGames()
 
-  // const { weatherDateTime } = games
+  const { weatherDateTime } = games
 
-  // const [currentIndex, setCurrentIndex] = useState(0)
-  // const [currentSecondIndex, setCurrentSecondIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentSecondIndex, setCurrentSecondIndex] = useState(0)
 
   const ageSeconds = Math.floor(
     (Date.now() - games.lastUpdated) / 1000
@@ -26,121 +26,118 @@ const App = () => {
 
   console.log({connected, games, ageSeconds})
 
-  // const formattedStandings = () => {
-  //   const abbMap = new Map(
-  //     mlbTeams.map((item: any) => [item.appId, item.abbreviation])
-  //   )
+  const formattedStandings = () => {
+    const abbMap = new Map(
+      mlbTeams.map((item: any) => [item.appId, item.abbreviation])
+    )
 
-  //   return games?.divisionStandings?.standings.map((team: any) => ({
-  //     ...team,
-  //     abbreviation: abbMap.get(team.teamId)
-  //   }))
-  // }
+    return games?.divisionStandings?.standings.map((team: any) => ({
+      ...team,
+      abbreviation: abbMap.get(team.teamId)
+    }))
+  }
 
-  // const divisionName = games?.divisionStandings?.divisionName || 'NLC'
+  const divisionName = games?.divisionStandings?.divisionName || 'NLC'
 
 
-  // const components = [
-  //   <MLBConcludedGameCard values={games.lastGame} />,
-  //   <MLBUpcomingGameCard values={games.nextGame} />
-  // ]
+  const components = [
+    <MLBConcludedGameCard values={games.lastGame} />,
+    <MLBUpcomingGameCard values={games.nextGame} />
+  ]
 
-  // const secondaryComponents = [
-  //   <DivisionStandings
-  //     divisionName={divisionName}
-  //     teams={formattedStandings()}
-  //   />,
-  //   <InningByInning
-  //     awayTeam={games?.inningByInning?.homeInnings || [null]}
-  //     homeTeam={games?.inningByInning?.awayInnings || [null]}
-  //   />
-  // ]
+  const secondaryComponents = [
+    <DivisionStandings
+      divisionName={divisionName}
+      teams={formattedStandings()}
+    />,
+    <InningByInning
+      awayTeam={games?.inningByInning?.homeInnings || [null]}
+      homeTeam={games?.inningByInning?.awayInnings || [null]}
+    />
+  ]
 
-  // useEffect(() => {
-  //   // Set up the interval for 10 seconds (10000 milliseconds)
-  //   const interval = setInterval(() => {
-  //     setCurrentIndex((prevIndex) => (prevIndex + 1) % components.length);
-  //   }, 10000);
+  useEffect(() => {
+    // Set up the interval for 10 seconds (10000 milliseconds)
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % components.length);
+    }, 10000);
 
-  //   // Clean up the interval when the component unmounts
-  //   return () => clearInterval(interval);
-  // }, [components.length])
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, [components.length])
 
-  // useEffect(() => {
-  //   // Set up the interval for 10 seconds (10000 milliseconds)
-  //   const interval = setInterval(() => {
-  //     setCurrentSecondIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length);
-  //   }, 5000);
+  useEffect(() => {
+    // Set up the interval for 10 seconds (10000 milliseconds)
+    const interval = setInterval(() => {
+      setCurrentSecondIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length);
+    }, 5000);
 
-  //   // Clean up the interval when the component unmounts
-  //   return () => clearInterval(interval);
-  // }, [secondaryComponents.length])
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, [secondaryComponents.length])
 
-  // const getWeatherIcon = (code: number) => {
-  //   switch (code) {
-  //     case 0:
-  //       return weatherIcons['clear']
-  //     case 1:
-  //       return weatherIcons['partlyCloudy']
-  //     case 2:
-  //       return weatherIcons['mostlyCloudy']
-  //     case 3:
-  //       return weatherIcons['cloudy']
-  //     case 45:
-  //       return weatherIcons['foggy']
-  //     case 51:
-  //     case 53:
-  //     case 55:
-  //       return weatherIcons['raindrops']
-  //     case 56:
-  //     case 57:
-  //     case 66:
-  //     case 67:
-  //       return weatherIcons['freezingRain']
-  //     case 61:
-  //     case 63:
-  //     case 65:
-  //       return weatherIcons['rain']
-  //     case 71:
-  //     case 73:
-  //     case 75:
-  //     case 77:
-  //       return weatherIcons['snow']
-  //     case 80:
-  //     case 81:
-  //     case 82:
-  //       return weatherIcons['rainShower']
-  //     case 85:
-  //     case 86:
-  //       return weatherIcons['snowShower']
-  //     case 95:
-  //       return weatherIcons['thunderstorm']
-  //     case 57:
-  //       return weatherIcons['heavyThunderstorm']
-  //     case 56:
-  //       return weatherIcons['hailstorm']
+  const getWeatherIcon = (code: number) => {
+    switch (code) {
+      case 0:
+        return weatherIcons['clear']
+      case 1:
+        return weatherIcons['partlyCloudy']
+      case 2:
+        return weatherIcons['mostlyCloudy']
+      case 3:
+        return weatherIcons['cloudy']
+      case 45:
+        return weatherIcons['foggy']
+      case 51:
+      case 53:
+      case 55:
+        return weatherIcons['raindrops']
+      case 56:
+      case 57:
+      case 66:
+      case 67:
+        return weatherIcons['freezingRain']
+      case 61:
+      case 63:
+      case 65:
+        return weatherIcons['rain']
+      case 71:
+      case 73:
+      case 75:
+      case 77:
+        return weatherIcons['snow']
+      case 80:
+      case 81:
+      case 82:
+        return weatherIcons['rainShower']
+      case 85:
+      case 86:
+        return weatherIcons['snowShower']
+      case 95:
+        return weatherIcons['thunderstorm']
+      case 57:
+        return weatherIcons['heavyThunderstorm']
+      case 56:
+        return weatherIcons['hailstorm']
     
-  //     default:
-  //       return weatherIcons['cloudy']
-  //   }
-  // }
+      default:
+        return weatherIcons['cloudy']
+    }
+  }
 
-  // const ActiveComponent = components[currentIndex]
-  // const ActiveSecondaryComponent = secondaryComponents[currentSecondIndex]
+  const ActiveComponent = components[currentIndex]
+  const ActiveSecondaryComponent = secondaryComponents[currentSecondIndex]
 
-  // const statusHealth =
-  //   ageSeconds < 60
-  //     ? 'good'
-  //     : ageSeconds < 240
-  //     ? 'warning'
-  //     : 'error'
+  const statusHealth =
+    ageSeconds < 60
+      ? 'good'
+      : ageSeconds < 240
+      ? 'warning'
+      : 'error'
 
   return (
     <>
-    <div>
-      <p>React App Render.</p>
-    </div>
-      {/* <div className='container' style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+      <div className='container' style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
         <div style={{ fontSize: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', backgroundColor: '#1a222c', height: '50px', flexShrink: 0, alignContent: 'center'}}>
           <div className='weather-details'>
             <img
@@ -167,7 +164,7 @@ const App = () => {
         <div style={{height: '140px', flexShrink: 0}}>
           {ActiveSecondaryComponent}
         </div>
-      </div> */}
+      </div>
     </>
   )
 }
