@@ -9,7 +9,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'West',
     primaryColor: '#003831',
-    logo: 'public\\MlbTeamLogos\\ath.png'
+    logo: '\\MlbTeamLogos\\ath.png'
   },
   {
     name: 'Pittsburgh Pirates',
@@ -20,7 +20,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'Central',
     primaryColor: '#27251F',
-    logo: 'public\\MlbTeamLogos\\pit.png'
+    logo: '\\MlbTeamLogos\\pit.png'
   },
   {
     name: 'San Diego Padres',
@@ -31,7 +31,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'West',
     primaryColor: '#2F241D',
-    logo: 'public\\MlbTeamLogos\\sd.png'
+    logo: '\\MlbTeamLogos\\sd.png'
   },
   {
     name: 'Seattle Mariners',
@@ -42,7 +42,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'West',
     primaryColor: '#0C2C56',
-    logo: 'public\\MlbTeamLogos\\sea.png'
+    logo: '\\MlbTeamLogos\\sea.png'
   },
   {
     name: 'San Francisco Giants',
@@ -53,7 +53,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'West',
     primaryColor: '#FD5A1E',
-    logo: 'public\\MlbTeamLogos\\sf.png'
+    logo: '\\MlbTeamLogos\\sf.png'
   },
   {
     name: 'St. Louis Cardinals',
@@ -64,7 +64,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'Central',
     primaryColor: '#C41E3A',
-    logo: 'public\\MlbTeamLogos\\stl.png'
+    logo: '\\MlbTeamLogos\\stl.png'
   },
   {
     name: 'Tampa Bay Rays',
@@ -75,7 +75,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'East',
     primaryColor: '#092C5C',
-    logo: 'public\\MlbTeamLogos\\tb.png'
+    logo: '\\MlbTeamLogos\\tb.png'
   },
   {
     name: 'Texas Rangers',
@@ -86,7 +86,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'West',
     primaryColor: '#003278',
-    logo: 'public\\MlbTeamLogos\\tex.png'
+    logo: '\\MlbTeamLogos\\tex.png'
   },
   {
     name: 'Toronto Blue Jays',
@@ -97,7 +97,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'East',
     primaryColor: '#134A8E',
-    logo: 'public\\MlbTeamLogos\\tor.png'
+    logo: '\\MlbTeamLogos\\tor.png'
   },
   {
     name: 'Minnesota Twins',
@@ -108,7 +108,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'Central',
     primaryColor: '#002B5C',
-    logo: 'public\\MlbTeamLogos\\min.png'
+    logo: '\\MlbTeamLogos\\min.png'
   },
   {
     name: 'Philadelphia Phillies',
@@ -119,7 +119,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'East',
     primaryColor: '#E81828',
-    logo: 'public\\MlbTeamLogos\\phi.png'
+    logo: '\\MlbTeamLogos\\phi.png'
   },
   {
     name: 'Atlanta Braves',
@@ -130,7 +130,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'East',
     primaryColor: '#CE1141',
-    logo: 'public\\MlbTeamLogos\\atl.png'
+    logo: '\\MlbTeamLogos\\atl.png'
   },
   {
     name: 'Chicago White Sox',
@@ -141,7 +141,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'Central',
     primaryColor: '#27251F',
-    logo: 'public\\MlbTeamLogos\\cws.png'
+    logo: '\\MlbTeamLogos\\cws.png'
   },
   {
     name: 'Miami Marlins',
@@ -152,7 +152,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'East',
     primaryColor: '#00A3E0',
-    logo: 'public\\MlbTeamLogos\\mia.png'
+    logo: '\\MlbTeamLogos\\mia.png'
   },
   {
     name: 'New York Yankees',
@@ -163,7 +163,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'East',
     primaryColor: '#003087',
-    logo: 'public\\MlbTeamLogos\\nyy.png'
+    logo: '\\MlbTeamLogos\\nyy.png'
   },
   {
     name: 'Milwaukee Brewers',
@@ -174,7 +174,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'Central',
     primaryColor: '#ffc52f',
-    logo: 'public\\MlbTeamLogos\\mil.png'
+    logo: '\\MlbTeamLogos\\mil.png'
   },
   {
     name: 'Los Angeles Angels',
@@ -185,7 +185,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'West',
     primaryColor: '#003263',
-    logo: 'public\\MlbTeamLogos\\laa.png'
+    logo: '\\MlbTeamLogos\\laa.png'
   },
   {
     name: 'Arizona Diamondbacks',
@@ -196,7 +196,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'West',
     primaryColor: '#A71930',
-    logo: 'public\\MlbTeamLogos\\az.png'
+    logo: '\\MlbTeamLogos\\az.png'
   },
   {
     name: 'Baltimore Orioles',
@@ -207,7 +207,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'East',
     primaryColor: '#DF4601',
-    logo: 'public\\MlbTeamLogos\\bal.png'
+    logo: '\\MlbTeamLogos\\bal.png'
   },
   {
     name: 'Boston Red Sox',
@@ -218,7 +218,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'East',
     primaryColor: '#BD3039',
-    logo: 'public\\MlbTeamLogos\\bos.png'
+    logo: '\\MlbTeamLogos\\bos.png'
   },
   {
     name: 'Chicago Cubs',
@@ -229,7 +229,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'Central',
     primaryColor: '#0E3386',
-    logo: 'public\\MlbTeamLogos\\chc.png'
+    logo: '\\MlbTeamLogos\\chc.png'
   },
   {
     name: 'Cincinnati Reds',
@@ -240,7 +240,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'Central',
     primaryColor: '#C6011F',
-    logo: 'public\\MlbTeamLogos\\cin.png'
+    logo: '\\MlbTeamLogos\\cin.png'
   },
   {
     name: 'Cleveland Guardians',
@@ -251,7 +251,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'Central',
     primaryColor: '#00385D',
-    logo: 'public\\MlbTeamLogos\\cle.png'
+    logo: '\\MlbTeamLogos\\cle.png'
   },
   {
     name: 'Colorado Rockies',
@@ -262,7 +262,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'West',
     primaryColor: '#333366',
-    logo: 'public\\MlbTeamLogos\\col.png'
+    logo: '\\MlbTeamLogos\\col.png'
   },
   {
     name: 'Detroit Tigers',
@@ -273,7 +273,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'Central',
     primaryColor: '#0C2340',
-    logo: 'public\\MlbTeamLogos\\det.png'
+    logo: '\\MlbTeamLogos\\det.png'
   },
   {
     name: 'Houston Astros',
@@ -284,7 +284,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'West',
     primaryColor: '#002D62',
-    logo: 'public\\MlbTeamLogos\\hou.png'
+    logo: '\\MlbTeamLogos\\hou.png'
   },
   {
     name: 'Kansas City Royals',
@@ -295,7 +295,7 @@ export const mlbTeams = [
     leagueAbbv: 'AL',
     division: 'Central',
     primaryColor: '#004687',
-    logo: 'public\\MlbTeamLogos\\kc.png'
+    logo: '\\MlbTeamLogos\\kc.png'
   },
   {
     name: 'Los Angeles Dodgers',
@@ -306,7 +306,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'West',
     primaryColor: '#005A9C',
-    logo: 'public\\MlbTeamLogos\\lad.png'
+    logo: '\\MlbTeamLogos\\lad.png'
   },
   {
     name: 'Washington Nationals',
@@ -317,7 +317,7 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'East',
     primaryColor: '#AB0003',
-    logo: 'public\\MlbTeamLogos\\wsh.png'
+    logo: '\\MlbTeamLogos\\wsh.png'
   },
   {
     name: 'New York Mets',
@@ -328,6 +328,6 @@ export const mlbTeams = [
     leagueAbbv: 'NL',
     division: 'East',
     primaryColor: '#002D72',
-    logo: 'public\\MlbTeamLogos\\nym.png'
+    logo: '\\MlbTeamLogos\\nym.png'
   }
 ]
