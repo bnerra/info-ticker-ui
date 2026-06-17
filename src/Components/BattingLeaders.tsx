@@ -12,6 +12,8 @@ interface BatterMatchupProps {
 
 const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSideBatters }) => {
 
+  console.log({leftSideBatters})
+
 // !!!!!!!!!!MAX 2 BATTERS!!!!!!!!!!!
 
 // Helper to cleanly format names: "Aaron Judge" -> "A. Judge"
@@ -21,6 +23,14 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     return `${parts[0].charAt(0).toUpperCase()}. ${parts.slice(1).join(' ')}`;
   };
 
+  const sample = {
+    hits: 1,
+    hr: 0,
+    name: 'Nootbar',
+    rbi: 1,
+    summary: '1-2 | BB, K, RBI'
+  }
+
   // Helper to render a batter row block with their corresponding dynamic stats
   const renderBatterBlock = (batter: DynamicBatterData, alignment: 'left' | 'right') => {
     const statKeys = Object.keys(batter).filter(key => key !== 'name');
@@ -29,15 +39,16 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     return (
       <div style={styles.batterBlock}>
         <div style={isRightAligned ? styles.nameLeft : styles.nameRight}>
-          {formatName(batter.name)}
+          {batter.name}
         </div>
         <div style={{ ...styles.statRow, justifyContent: isRightAligned ? 'flex-end' : 'flex-start' }}>
-          {statKeys.map((key) => (
+          {batter.summary}
+          {/* {statKeys.map((key) => (
             <div key={key} style={styles.statCell}>
               <span style={styles.label}>{key}</span>
               <span style={styles.value}>{batter[key]}</span>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     );

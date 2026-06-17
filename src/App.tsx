@@ -8,6 +8,7 @@ import DivisionStandings from './Components/DivisionStandings'
 import { mlbTeams } from './data/mlbTeams'
 import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
+import BattingLeaders from './Components/BattingLeaders'
 
 const App = () => {
   const {
@@ -135,6 +136,16 @@ const App = () => {
       ? 'warning'
       : 'error'
 
+  const team1: any = [
+    { name: 'Gunnar Henderson', ab: 3, h: 2, rbi: 1, hr: 1 },
+    { name: 'Adley Rutschman', ab: 2, h: 0, bb: 1, r: 1 }
+  ];
+
+  const team2: any = [
+    { name: 'Aaron Judge', ab: 2, h: 1, hr: 1, rbi: 2 },
+    { name: 'Juan Soto', ab: 3, h: 1, double: 1, bb: 0 }
+  ]
+
   return (
     <>
       <div className='container' style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
@@ -162,7 +173,11 @@ const App = () => {
             : ActiveComponent}
         </div>
         <div style={{flexShrink: 0}}>
-          {ActiveSecondaryComponent}
+          {/* {ActiveSecondaryComponent} */}
+          <BattingLeaders
+            leftSideBatters={games.lastGame?.awayTeam.battingLeaders}
+            rightSideBatters={games.lastGame?.homeTeam.battingLeaders}
+          />
         </div>
       </div>
     </>
