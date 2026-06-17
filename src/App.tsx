@@ -161,7 +161,7 @@ const App = () => {
             ? <MLBCurrentGame values={games.currentGame} />
             : ActiveComponent}
         </div>
-        <div style={{height: '140px', flexShrink: 0}}>
+        <div style={{flexShrink: 0}}>
           {ActiveSecondaryComponent}
         </div>
       </div>
