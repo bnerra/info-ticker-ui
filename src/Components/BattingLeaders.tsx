@@ -6,35 +6,20 @@ export interface DynamicBatterData {
 }
 
 interface BatterMatchupProps {
-  leftSideBatters: DynamicBatterData[] // Exactly two batters for the left column
-  rightSideBatters: DynamicBatterData[] // Exactly two batters for the right column
+  leftSideBatters: DynamicBatterData[]
+  rightSideBatters: DynamicBatterData[]
 }
 
 const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSideBatters }) => {
 
   console.log({leftSideBatters})
-
-// !!!!!!!!!!MAX 2 BATTERS!!!!!!!!!!!
-
-// Helper to cleanly format names: "Aaron Judge" -> "A. Judge"
-  const formatName = (fullName: string) => {
-    const parts = fullName.trim().split(/\s+/);
-    if (parts.length <= 1) return fullName;
-    return `${parts[0].charAt(0).toUpperCase()}. ${parts.slice(1).join(' ')}`;
-  };
-
-  const sample = {
-    hits: 1,
-    hr: 0,
-    name: 'Nootbar',
-    rbi: 1,
-    summary: '1-2 | BB, K, RBI'
-  }
+ if (!leftSideBatters && !rightSideBatters) {
+  return
+ }
 
   // Helper to render a batter row block with their corresponding dynamic stats
   const renderBatterBlock = (batter: DynamicBatterData, alignment: 'left' | 'right') => {
-    const statKeys = Object.keys(batter).filter(key => key !== 'name');
-    const isRightAligned = alignment === 'left'; // Left column content aligns right towards the center divider
+    const isRightAligned = alignment === 'left'
 
     return (
       <div style={styles.batterBlock}>
@@ -43,12 +28,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
         </div>
         <div style={{ ...styles.statRow, justifyContent: isRightAligned ? 'flex-end' : 'flex-start' }}>
           {batter.summary}
-          {/* {statKeys.map((key) => (
-            <div key={key} style={styles.statCell}>
-              <span style={styles.label}>{key}</span>
-              <span style={styles.value}>{batter[key]}</span>
-            </div>
-          ))} */}
         </div>
       </div>
     );
@@ -71,21 +50,23 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     },
     // Left column wrapper containing two stacked batters
     leftColumn: {
+      paddingTop: '15px',
       flex: 1,
       display: 'flex',
       flexDirection: 'column' as const,
       justifyContent: 'center',
-      gap: '26px',
-      paddingRight: '18px'
+      gap: '12px',
+      alignItems: 'center'
     },
     // Right column wrapper containing two stacked batters
     rightColumn: {
+      paddingTop: '15px',
       flex: 1,
       display: 'flex',
       flexDirection: 'column' as const,
       justifyContent: 'center',
-      gap: '26px',
-      paddingLeft: '18px'
+      gap: '12px',
+      alignItems: 'center'
     },
     // Clean visual separator between the two team sides
     divider: {
@@ -96,18 +77,21 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     },
     batterBlock: {
       display: 'flex',
-      gap: '16px'
+      gap: '16px',
+      fontSize: '23px'
     },
     nameLeft: {
-      fontSize: '28px',
-      fontWeight: '700',
+      fontFamily: 'sans-serif',
+      fontSize: '25px',
+      fontWeight: '600',
       color: '#e7e7e7',
       textAlign: 'right' as const,
       marginBottom: '2px'
     },
     nameRight: {
-      fontSize: '28px',
-      fontWeight: '700',
+      fontFamily: 'sans-serif',
+      fontSize: '25px',
+      fontWeight: '600',
       color: '#e7e7e7',
       textAlign: 'left' as const,
       marginBottom: '2px'
@@ -115,10 +99,7 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     statRow: {
       display: 'flex',
       gap: '16px',
-      color: '#374151',
-    },
-    statCell: {
-      display: 'inline-flex',
+      color: '#cfcfcf',
     },
     label: {
       color: '#9ca3af',
@@ -127,13 +108,8 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
       marginRight: '6px',
       textTransform: 'uppercase' as const,
       alignSelf: 'end'
-    },
-    value: {
-      fontWeight: '700',
-      fontSize: '26px',
-      color: '#cfcfcf'
     }
-  };
+  }
 
   return (
     <div style={styles.container}>
@@ -142,8 +118,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
         {
           leftSideBatters.map((batter: DynamicBatterData) => renderBatterBlock(batter, 'left'))
         }
-        {/* {renderBatterBlock(leftSideBatters[0], 'left')}
-        {renderBatterBlock(leftSideBatters[1], 'left')} */}
       </div>
 
       {/* Center Divider */}
@@ -154,8 +128,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
         {
           rightSideBatters.map((batter: DynamicBatterData) => renderBatterBlock(batter, 'right'))
         }
-        {/* {renderBatterBlock(rightSideBatters[0], 'right')}
-        {renderBatterBlock(rightSideBatters[1], 'right')} */}
       </div>
     </div>
   )

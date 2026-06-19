@@ -16,6 +16,8 @@ const App = () => {
     connected
   } = useLiveGames()
 
+ 
+
   const { weatherDateTime } = games
 
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -54,6 +56,10 @@ const App = () => {
     <InningByInning
       awayTeam={games?.inningByInning?.homeInnings || [null]}
       homeTeam={games?.inningByInning?.awayInnings || [null]}
+    />,
+    <BattingLeaders
+      leftSideBatters={games.battingLeaders?.away}
+      rightSideBatters={games.battingLeaders?.home}
     />
   ]
 
@@ -136,15 +142,9 @@ const App = () => {
       ? 'warning'
       : 'error'
 
-  const team1: any = [
-    { name: 'Gunnar Henderson', ab: 3, h: 2, rbi: 1, hr: 1 },
-    { name: 'Adley Rutschman', ab: 2, h: 0, bb: 1, r: 1 }
-  ];
-
-  const team2: any = [
-    { name: 'Aaron Judge', ab: 2, h: 1, hr: 1, rbi: 2 },
-    { name: 'Juan Soto', ab: 3, h: 1, double: 1, bb: 0 }
-  ]
+  if (games.length <1) {
+    return
+  }
 
   return (
     <>
@@ -173,11 +173,7 @@ const App = () => {
             : ActiveComponent}
         </div>
         <div style={{flexShrink: 0}}>
-          {/* {ActiveSecondaryComponent} */}
-          <BattingLeaders
-            leftSideBatters={games.lastGame?.awayTeam.battingLeaders}
-            rightSideBatters={games.lastGame?.homeTeam.battingLeaders}
-          />
+          {ActiveSecondaryComponent}
         </div>
       </div>
     </>
