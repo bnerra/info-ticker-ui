@@ -12,7 +12,6 @@ interface BatterMatchupProps {
 
 const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSideBatters }) => {
 
-  console.log({leftSideBatters})
  if (!leftSideBatters && !rightSideBatters) {
   return
  }
@@ -78,11 +77,11 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     batterBlock: {
       display: 'flex',
       gap: '16px',
-      fontSize: '23px'
+      fontSize: '27px'
     },
     nameLeft: {
       fontFamily: 'sans-serif',
-      fontSize: '25px',
+      fontSize: '28px',
       fontWeight: '600',
       color: '#e7e7e7',
       textAlign: 'right' as const,
@@ -90,7 +89,7 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
     },
     nameRight: {
       fontFamily: 'sans-serif',
-      fontSize: '25px',
+      fontSize: '28px',
       fontWeight: '600',
       color: '#e7e7e7',
       textAlign: 'left' as const,
@@ -100,14 +99,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
       display: 'flex',
       gap: '16px',
       color: '#cfcfcf',
-    },
-    label: {
-      color: '#9ca3af',
-      fontSize: '24px',
-      fontWeight: '600',
-      marginRight: '6px',
-      textTransform: 'uppercase' as const,
-      alignSelf: 'end'
     }
   }
 

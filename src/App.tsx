@@ -9,14 +9,13 @@ import { mlbTeams } from './data/mlbTeams'
 import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
 import BattingLeaders from './Components/BattingLeaders'
+import PitchingLeaders from './Components/PitchingLeaders'
 
 const App = () => {
   const {
     games,
     connected
   } = useLiveGames()
-
- 
 
   const { weatherDateTime } = games
 
@@ -60,6 +59,11 @@ const App = () => {
     <BattingLeaders
       leftSideBatters={games.battingLeaders?.away}
       rightSideBatters={games.battingLeaders?.home}
+    />,
+    <PitchingLeaders
+      isConcluded={games.viewStatus === 'CONCLUDED'}
+      leftSidePitchers={games.pitchingLeaders.filter((item: any) => item.side === 'away')}
+      rightSidePitchers={games.pitchingLeaders.filter((item: any) => item.side === 'home')}
     />
   ]
 

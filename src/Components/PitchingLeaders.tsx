@@ -8,50 +8,34 @@ export interface DynamicPitcherData {
 }
 
 interface PitcherMatchupProps {
-  leftSidePitchers: DynamicPitcherData[] // Exactly two pitchers for the left column
-  rightSidePitchers: DynamicPitcherData[] // Exactly two pitchers for the right column
+  isConcluded: boolean
+  leftSidePitchers: DynamicPitcherData[]
+  rightSidePitchers: DynamicPitcherData[]
 }
 
 const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, rightSidePitchers }) => {
 
-// Helper to cleanly format names: "Aaron Judge" -> "A. Judge"
-  const formatName = (fullName: string) => {
-    const parts = fullName.trim().split(/\s+/);
-    if (parts.length <= 1) return fullName;
-    return `${parts[0].charAt(0).toUpperCase()}. ${parts.slice(1).join(' ')}`;
-  };
-
+  if (!leftSidePitchers && !rightSidePitchers) {
+    return
+  }
   // Helper to render a batter row block with their corresponding dynamic stats
   const renderPitcherBlock = (pitcher: DynamicPitcherData, alignment: 'left' | 'right') => {
-    const statKeys = Object.keys(pitcher).filter(key => key !== 'name' && key !== 'isWinner' && key !== 'isSave' && key !== 'isLoser');
-    const isRightAligned = alignment === 'left'; // Left column content aligns right towards the center divider
+    const isRightAligned = alignment === 'left'
 
     return (
       <div style={styles.pitcherBlock}>
         <div style={isRightAligned ? styles.nameLeft : styles.nameRight}>
-          {pitcher.isWinner && 'W : '}
-          {pitcher.isSave && 'S : '}
-          {pitcher.isLoser && 'L : '}
-          {formatName(pitcher.name)}
-        </div>
-        <div style={{ ...styles.statRow, justifyContent: isRightAligned ? 'flex-end' : 'flex-start' }}>
-          {statKeys.map((key) => (
-            <div key={key} style={styles.statCell}>
-              <span style={styles.label}>{key !== 'record' && key}</span>
-              <span style={styles.value}>{pitcher[key]}</span>
-            </div>
-          ))}
+          {pitcher.label} : {pitcher.name} {pitcher.stats}
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const styles = {
     container: {
       width: '1024px',
       height: '140px',
       margin: '0 auto',
-      padding: '0 18px',
       backgroundColor: '#1a222c',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -67,8 +51,8 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
       display: 'flex',
       flexDirection: 'column' as const,
       justifyContent: 'center',
-      gap: '26px',
-      paddingRight: '18px'
+      gap: '34px',
+      alignItems: 'center'
     },
     // Right column wrapper containing two stacked batters
     rightColumn: {
@@ -76,8 +60,8 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
       display: 'flex',
       flexDirection: 'column' as const,
       justifyContent: 'center',
-      gap: '26px',
-      paddingLeft: '18px'
+      gap: '34px',
+      alignItems: 'center'
     },
     // Clean visual separator between the two team sides
     divider: {
@@ -92,14 +76,14 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
       alignItems: 'end'
     },
     nameLeft: {
-      fontSize: '26px',
+      fontSize: '34px',
       fontWeight: '600',
       color: '#e7e7e7',
       textAlign: 'right' as const,
       marginBottom: '2px'
     },
     nameRight: {
-      fontSize: '26px',
+      fontSize: '34px',
       fontWeight: '600',
       color: '#e7e7e7',
       textAlign: 'left' as const,
@@ -119,14 +103,13 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
       fontWeight: '600',
       marginRight: '4px',
       textTransform: 'uppercase' as const,
-      // alignSelf: 'end'
     },
     value: {
       fontWeight: '700',
       fontSize: '24px',
       color: '#cfcfcf'
     }
-  };
+  }
 
   return (
     <div style={styles.container}>
@@ -135,8 +118,6 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
         {
           leftSidePitchers.map((pitcher: DynamicPitcherData) => renderPitcherBlock(pitcher, 'left'))
         }
-        {/* {renderBatterBlock(leftSideBatters[0], 'left')}
-        {renderBatterBlock(leftSideBatters[1], 'left')} */}
       </div>
 
       {/* Center Divider */}
@@ -147,8 +128,6 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
         {
           rightSidePitchers.map((pitcher: DynamicPitcherData) => renderPitcherBlock(pitcher, 'right'))
         }
-        {/* {renderBatterBlock(rightSideBatters[0], 'right')}
-        {renderBatterBlock(rightSideBatters[1], 'right')} */}
       </div>
     </div>
   )
