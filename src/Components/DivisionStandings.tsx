@@ -47,7 +47,7 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
       fontWeight: '800',
       textTransform: 'uppercase' as const,
       letterSpacing: '1.2px',
-      color: '#6b7280',
+      color: '#9ca3af',
       textAlign: 'center' as const,
       flexShrink: 0
     },
@@ -87,7 +87,7 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
     teamAbbr: {
       fontSize: '35px',
       fontWeight: '800',
-      color: '#9ca3af',
+      color: '#cfcfcf',
       letterSpacing: '-0.3px',
       lineHeight: '1.1',
       marginBottom: '1px',
@@ -97,11 +97,11 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
     statsRow: {
       fontSize: '26px',
       fontWeight: '800',
-      color: '#6b7280',
+      color: '#9ca3af',
       lineHeight: '1'
     },
     gbText: {
-      color: '#6b7280',
+      color: '#9ca3af',
       fontWeight: '700',
       fontSize: '24px',
       marginLeft: '2px'

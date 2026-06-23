@@ -24,7 +24,7 @@ const MLBUpcomingGameCard = (values: any) => {
           <div style={{alignContent: 'center', fontSize: '50px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
             ({gameData.awayTeam.record.wins}-{gameData.awayTeam.record.losses})
           </div>
-          <div style={{display: 'grid', rowGap: '20px', alignContent: 'center', fontSize: '35px', fontFamily: 'inter', color: '#9aa4b2'}}>
+          <div style={{display: 'grid', rowGap: '20px', alignContent: 'center', fontSize: '35px', fontFamily: 'inter', color: '#cfcfcf'}}>
             <p>{gameData.awayTeam.probablePitcher.name} ({gameData.awayTeam.probablePitcher.hand}HP)</p>
             <p>{gameData.awayTeam.probablePitcher.wins}-{gameData.awayTeam.probablePitcher.losses}, {gameData.awayTeam.probablePitcher.era} ERA</p>
           </div>
@@ -51,7 +51,7 @@ const MLBUpcomingGameCard = (values: any) => {
           <div style={{alignContent: 'center', fontSize: '50px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
             ({gameData.homeTeam.record.wins}-{gameData.homeTeam.record.losses})
           </div>
-          <div style={{display: 'grid', rowGap: '20px', alignContent: 'center', fontSize: '35px', fontFamily: 'inter', color: '#9aa4b2'}}>
+          <div style={{display: 'grid', rowGap: '20px', alignContent: 'center', fontSize: '35px', fontFamily: 'inter', color: '#cfcfcf'}}>
             <p>{gameData.homeTeam.probablePitcher.name} ({gameData.homeTeam.probablePitcher.hand}HP)</p>
             <p>{gameData.homeTeam.probablePitcher.wins}-{gameData.homeTeam.probablePitcher.losses}, {gameData.homeTeam.probablePitcher.era} ERA</p>
           </div>

@@ -11,6 +11,8 @@ import { weatherIcons } from './data/weatherIcons'
 import BattingLeaders from './Components/BattingLeaders'
 import PitchingLeaders from './Components/PitchingLeaders'
 
+type PrimaryView = 'inProgress' | 'concluded' | 'upcoming'
+
 const App = () => {
   const {
     games,
@@ -19,8 +21,8 @@ const App = () => {
 
   const { weatherDateTime } = games
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentSecondIndex, setCurrentSecondIndex] = useState(0)
+  const [primaryRotationIndex, setPrimaryRotationIndex] = useState(0)
+  const [currentSecondaryIndex, setCurrentSecondaryIndex] = useState(0)
 
   const ageSeconds = Math.floor(
     (Date.now() - games.lastUpdated) / 1000
@@ -28,6 +30,21 @@ const App = () => {
 
   console.log({connected, games, ageSeconds})
 
+  const isGameInProgress = games.viewStatus === 'inProgress'
+
+  const currentPrimaryModule: PrimaryView = 
+    isGameInProgress
+      ? 'inProgress'
+      : primaryRotationIndex % 2 === 0 
+        ? 'concluded'
+        : 'upcoming'
+
+  const PRIMARY_COMPONENTS = {
+    inProgress: <MLBCurrentGame values={games.currentGame} />,
+    concluded: <MLBConcludedGameCard values={games.lastGame} />,
+    upcoming: <MLBUpcomingGameCard values={games.nextGame} />,
+  }
+  
   const formattedStandings = () => {
     const abbMap = new Map(
       mlbTeams.map((item: any) => [item.appId, item.abbreviation])
@@ -41,51 +58,73 @@ const App = () => {
 
   const divisionName = games?.divisionStandings?.divisionName || 'NLC'
 
-
-  const components = [
-    <MLBConcludedGameCard values={games.lastGame} />,
-    <MLBUpcomingGameCard values={games.nextGame} />
-  ]
-
-  const secondaryComponents = [
-    <DivisionStandings
-      divisionName={divisionName}
-      teams={formattedStandings()}
-    />,
-    <InningByInning
-      awayTeam={games?.inningByInning?.homeInnings || [null]}
-      homeTeam={games?.inningByInning?.awayInnings || [null]}
-    />,
-    <BattingLeaders
-      leftSideBatters={games.battingLeaders?.away}
-      rightSideBatters={games.battingLeaders?.home}
-    />,
-    <PitchingLeaders
-      isConcluded={games.viewStatus === 'CONCLUDED'}
-      leftSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
-      rightSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
-    />
-  ]
+  const SECONDARY_MODULES = {
+    inProgress: [
+      <InningByInning
+        awayTeam={games?.inningByInning?.homeInnings || [null]}
+        homeTeam={games?.inningByInning?.awayInnings || [null]}
+      />,
+      <BattingLeaders
+        leftSideBatters={games.battingLeaders?.away}
+        rightSideBatters={games.battingLeaders?.home}
+      />,
+      <PitchingLeaders
+        leftSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
+        rightSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
+      />
+    ],
+    concluded: [
+      <InningByInning
+        awayTeam={games?.inningByInning?.homeInnings || [null]}
+        homeTeam={games?.inningByInning?.awayInnings || [null]}
+      />,
+      <BattingLeaders
+        leftSideBatters={games.battingLeaders?.away}
+        rightSideBatters={games.battingLeaders?.home}
+      />,
+      <PitchingLeaders
+        isConcluded
+        leftSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
+        rightSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
+      />
+    ],
+    upcoming: [
+      <DivisionStandings
+        divisionName={divisionName}
+        teams={formattedStandings()}
+      />
+    ]
+  }
 
   useEffect(() => {
-    // Set up the interval for 10 seconds (10000 milliseconds)
+    if (isGameInProgress) return
+
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % components.length);
-    }, 10000);
+      // setPrimaryRotationIndex((prevIndex) => (prevIndex + 1) % components.length)
+      setPrimaryRotationIndex((prevIndex) => (prevIndex + 1))
+    }, 20000)
 
     // Clean up the interval when the component unmounts
-    return () => clearInterval(interval);
-  }, [components.length])
+    return () => clearInterval(interval)
+  }, [isGameInProgress])
 
   useEffect(() => {
-    // Set up the interval for 10 seconds (10000 milliseconds)
     const interval = setInterval(() => {
-      setCurrentSecondIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length);
-    }, 5000);
+      // setCurrentSecondaryIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length)
+      setCurrentSecondaryIndex((prevIndex) => (prevIndex + 1))
+    }, 5000)
 
     // Clean up the interval when the component unmounts
-    return () => clearInterval(interval);
-  }, [secondaryComponents.length])
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    setCurrentSecondaryIndex(0)
+  }, [currentPrimaryModule])
+
+  const availableSecondaryModules = SECONDARY_MODULES[currentPrimaryModule]
+
+  const SecondaryComponent = availableSecondaryModules[currentSecondaryIndex % availableSecondaryModules.length]
 
   const getWeatherIcon = (code: number) => {
     switch (code) {
@@ -136,9 +175,6 @@ const App = () => {
     }
   }
 
-  const ActiveComponent = components[currentIndex]
-  const ActiveSecondaryComponent = secondaryComponents[currentSecondIndex]
-
   const statusHealth =
     ageSeconds < 60
       ? 'good'
@@ -146,6 +182,8 @@ const App = () => {
       ? 'warning'
       : 'error'
 
+  const PrimaryComponent = PRIMARY_COMPONENTS[currentPrimaryModule]
+  
   if (games.length <1) {
     return
   }
@@ -172,12 +210,10 @@ const App = () => {
           </div>
         </div>
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
-          {games.viewStatus === 'IN_PROGRESS'
-            ? <MLBCurrentGame values={games.currentGame} />
-            : ActiveComponent}
+          {PrimaryComponent}
         </div>
         <div style={{flexShrink: 0}}>
-          {ActiveSecondaryComponent}
+          {SecondaryComponent}
         </div>
       </div>
     </>

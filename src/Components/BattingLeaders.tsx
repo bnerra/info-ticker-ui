@@ -13,10 +13,9 @@ interface BatterMatchupProps {
 const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSideBatters }) => {
 
  if (!leftSideBatters && !rightSideBatters) {
-  return
+  return <></>
  }
 
-  // Helper to render a batter row block with their corresponding dynamic stats
   const renderBatterBlock = (batter: DynamicBatterData, alignment: 'left' | 'right') => {
     const isRightAligned = alignment === 'left'
 
@@ -29,8 +28,8 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
           {batter.summary}
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const styles = {
     container: {
@@ -47,7 +46,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
       boxSizing: 'border-box' as const,
       overflow: 'hidden'
     },
-    // Left column wrapper containing two stacked batters
     leftColumn: {
       paddingTop: '15px',
       flex: 1,
@@ -57,7 +55,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
       gap: '12px',
       alignItems: 'center'
     },
-    // Right column wrapper containing two stacked batters
     rightColumn: {
       paddingTop: '15px',
       flex: 1,
@@ -67,7 +64,6 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
       gap: '12px',
       alignItems: 'center'
     },
-    // Clean visual separator between the two team sides
     divider: {
       width: '1px',
       height: '100px',
@@ -104,17 +100,14 @@ const BattingLeaders: React.FC<BatterMatchupProps> = ({ leftSideBatters, rightSi
 
   return (
     <div style={styles.container}>
-      {/* Column 1: Left Side Batters */}
       <div style={styles.leftColumn}>
         {
           leftSideBatters.map((batter: DynamicBatterData) => renderBatterBlock(batter, 'left'))
         }
       </div>
 
-      {/* Center Divider */}
       <div style={styles.divider}></div>
 
-      {/* Column 2: Right Side Batters */}
       <div style={styles.rightColumn}>
         {
           rightSideBatters.map((batter: DynamicBatterData) => renderBatterBlock(batter, 'right'))

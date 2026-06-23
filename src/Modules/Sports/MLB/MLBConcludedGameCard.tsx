@@ -13,7 +13,7 @@ const MLBConcludedGameCard = (values: any) => {
 
   return (
     <>
-      <div className='mlb-game-concluded' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '2fr 0.5fr 2fr', height: '100%'}}>
+      <div className='mlb-game-concluded' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '2fr 1fr 2fr', height: '100%'}}>
           
           {/* AWAY TEAM INFO */}
           <div style={{display: 'grid', gridTemplateColumns: '2.2fr 1.2fr', backgroundColor: '#1a222c'}}>
@@ -32,7 +32,7 @@ const MLBConcludedGameCard = (values: any) => {
 
           {/* LINESCORE */}
           <div style={{backgroundColor: '#1a222c'}}>
-            <div style={{paddingBottom: '30px', fontSize: '30px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '55px'}}>
+            <div style={{paddingBottom: '40px', fontSize: '40px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '55px'}}>
               <p>{gameData.metaData.date}</p>
             </div>
             <div style={{transform: 'rotate(-90deg)', fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '80px'}}>

@@ -8,7 +8,7 @@ export interface DynamicPitcherData {
 }
 
 interface PitcherMatchupProps {
-  isConcluded: boolean
+  isConcluded?: boolean
   leftSidePitchers: DynamicPitcherData[]
   rightSidePitchers: DynamicPitcherData[]
 }
@@ -33,15 +33,15 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ isConcluded, leftSideP
       :
       (
         <div>
-          {/* <div style={isRightAligned ? styles.nameLeft : styles.nameRight}> */}
-            <div style={{ fontFamily: 'sans-serif', fontSize: '28px', fontWeight: '600', color: '#e7e7e7'}}>
+          <div style={{display: 'flex', flexDirection: 'column', rowGap: '25px'}}>
+            <div style={{ fontFamily: 'sans-serif', fontSize: '38px', fontWeight: '600', color: '#e7e7e7'}}>
               {pitcher.name}
             </div>
-            <div style={{ color: '#cfcfcf' }}>
+            <div style={{ color: '#cfcfcf', fontSize: '35px' }}>
               {pitcher.stats}
             </div>
           </div>
-        // </div>
+        </div>
       )
     )
   }
