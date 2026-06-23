@@ -48,22 +48,22 @@ const App = () => {
   ]
 
   const secondaryComponents = [
-    <DivisionStandings
-      divisionName={divisionName}
-      teams={formattedStandings()}
-    />,
-    <InningByInning
-      awayTeam={games?.inningByInning?.homeInnings || [null]}
-      homeTeam={games?.inningByInning?.awayInnings || [null]}
-    />,
-    <BattingLeaders
-      leftSideBatters={games.battingLeaders?.away}
-      rightSideBatters={games.battingLeaders?.home}
-    />,
+    // <DivisionStandings
+    //   divisionName={divisionName}
+    //   teams={formattedStandings()}
+    // />,
+    // <InningByInning
+    //   awayTeam={games?.inningByInning?.homeInnings || [null]}
+    //   homeTeam={games?.inningByInning?.awayInnings || [null]}
+    // />,
+    // <BattingLeaders
+    //   leftSideBatters={games.battingLeaders?.away}
+    //   rightSideBatters={games.battingLeaders?.home}
+    // />,
     <PitchingLeaders
       isConcluded={games.viewStatus === 'CONCLUDED'}
-      leftSidePitchers={games.pitchingLeaders && games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
-      rightSidePitchers={games.pitchingLeaders && games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
+      leftSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
+      rightSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
     />
   ]
 

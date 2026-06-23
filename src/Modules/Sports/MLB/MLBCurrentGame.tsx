@@ -42,7 +42,7 @@ const MLBCurrentGame = (values: any) => {
           <div style={{alignContent: 'center', fontSize: '150px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
             {gameData.awayTeam.score}
           </div>
-          <div style={{alignContent: 'end', marginBottom: '10px', fontSize: '32px', fontFamily: 'inter', color: '#9aa4b2'}}>
+          <div style={{alignContent: 'end', marginBottom: '10px', fontSize: '32px', fontFamily: 'inter', color: '#cfcfcf'}}>
             {gameData.metaData.isTopInning
               ? <>{gameData.metaData.batter.number}. {gameData.metaData.batter.name} &nbsp;{gameData.metaData.batter.average}</>
               : <>{gameData.metaData.pitcher.name} &nbsp;P:{gameData.metaData.pitcher.pitchCount}</>
@@ -76,7 +76,7 @@ const MLBCurrentGame = (values: any) => {
           <div style={{alignContent: 'center', fontSize: '150px', fontFamily: 'sans-serif', color: '#f5f7fa'}}>
             {gameData.homeTeam.score}
           </div>
-          <div style={{alignContent: 'end', marginBottom: '10px', fontSize: '32px', fontFamily: 'inter', color: '#9aa4b2'}}>
+          <div style={{alignContent: 'end', marginBottom: '10px', fontSize: '32px', fontFamily: 'inter', color: '#cfcfcf'}}>
             {!gameData.metaData.isTopInning
               ? <>{gameData.metaData.batter.number}. {gameData.metaData.batter.name} &nbsp;{gameData.metaData.batter.average}</>
               : <>{gameData.metaData.pitcher.name} &nbsp;P:{gameData.metaData.pitcher.pitchCount}</>

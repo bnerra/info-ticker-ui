@@ -13,7 +13,7 @@ interface PitcherMatchupProps {
   rightSidePitchers: DynamicPitcherData[]
 }
 
-const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, rightSidePitchers }) => {
+const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ isConcluded, leftSidePitchers, rightSidePitchers }) => {
 
   if (!leftSidePitchers || !rightSidePitchers) {
     return <></>
@@ -23,11 +23,26 @@ const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, righ
     const isRightAligned = alignment === 'left'
 
     return (
-      <div style={styles.pitcherBlock}>
-        <div style={isRightAligned ? styles.nameLeft : styles.nameRight}>
-          {pitcher.label} : {pitcher.name} {pitcher.stats}
+      isConcluded ? (
+        <div style={styles.pitcherBlock}>
+          <div style={isRightAligned ? styles.nameLeft : styles.nameRight}>
+            {pitcher.label} : {pitcher.name} {pitcher.stats}
+          </div>
         </div>
-      </div>
+      )
+      :
+      (
+        <div>
+          {/* <div style={isRightAligned ? styles.nameLeft : styles.nameRight}> */}
+            <div style={{ fontFamily: 'sans-serif', fontSize: '28px', fontWeight: '600', color: '#e7e7e7'}}>
+              {pitcher.name}
+            </div>
+            <div style={{ color: '#cfcfcf' }}>
+              {pitcher.stats}
+            </div>
+          </div>
+        // </div>
+      )
     )
   }
 
