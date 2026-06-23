@@ -15,7 +15,7 @@ interface PitcherMatchupProps {
 
 const PitchingLeaders: React.FC<PitcherMatchupProps> = ({ leftSidePitchers, rightSidePitchers }) => {
 
-  if (!leftSidePitchers && !rightSidePitchers) {
+  if (!leftSidePitchers || !rightSidePitchers) {
     return
   }
   // Helper to render a batter row block with their corresponding dynamic stats
