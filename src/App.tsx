@@ -62,8 +62,8 @@ const App = () => {
     />,
     <PitchingLeaders
       isConcluded={games.viewStatus === 'CONCLUDED'}
-      leftSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
-      rightSidePitchers={games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
+      leftSidePitchers={games.pitchingLeaders && games.pitchingLeaders?.filter((item: any) => item.side === 'away') || null}
+      rightSidePitchers={games.pitchingLeaders && games.pitchingLeaders?.filter((item: any) => item.side === 'home') || null}
     />
   ]
 
