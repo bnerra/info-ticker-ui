@@ -210,6 +210,7 @@ const App = () => {
           </div>
         </div>
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
+          TESTING TESTING
           {PrimaryComponent}
         </div>
         <div style={{flexShrink: 0}}>
