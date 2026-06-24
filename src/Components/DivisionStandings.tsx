@@ -1,6 +1,6 @@
 import * as React from 'react'
+import { mlbTeams } from '../data/mlbTeams'
 
-// Structure for each of the 5 teams
 export interface TeamStanding {
   abbreviation: string
   wins: number;
@@ -9,24 +9,44 @@ export interface TeamStanding {
 }
 
 interface DivisionStandingsProps {
-  divisionName: string
-  teams: TeamStanding[]
+  standingsData: any[]
 }
 
-const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, teams }) => {
+const formattedStandings = (standings: any[]) => {
+  const abbMap = new Map(
+    mlbTeams.map((item: any) => [item.appId, item.abbreviation])
+  )
 
-   // Auto-sort the array based on overall win percentage before rendering
-  // const sortedTeams = [...teams].sort((a, b) => {
-  //   const winPctA = a.wins / (a.wins + a.losses || 1);
-  //   const winPctB = b.wins / (b.wins + b.losses || 1);
-  //   return winPctB - winPctA;
-  // });
+  return standings.map((team: any) => ({
+    ...team,
+    abbreviation: abbMap.get(team.teamId)
+  }))
+}
 
-  // Helper to format games back to one decimal place if it's a number
-  // const formatGB = (gb: number | '-') => {
-  //   if (gb === '-') return '-';
-  //   return gb.toFixed(1);
-  // };
+const DivisionStandings: React.FC<DivisionStandingsProps> = ({ standingsData }) => {
+
+  if (!(standingsData.length > 0)) {
+
+    return <></>
+  }
+
+  const [divisionIndex, setDivisionIndex] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!standingsData?.length) return
+
+    const interval = setInterval(() => {
+      setDivisionIndex(prev => (prev + 1) % standingsData.length)
+    }, 6500)
+
+    return () => clearInterval(interval)
+  }, [standingsData.length])
+
+  const currentDivision = standingsData[divisionIndex]
+
+  const divisionName = currentDivision.divisionName
+
+  const teams: any = formattedStandings(currentDivision.standings)
 
   const styles = {
     container: {
@@ -110,26 +130,20 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
 
   return (
     <div style={styles.container}>
-      {/* Centered Division Header Title */}
       <h2 style={styles.title}>{divisionName}</h2>
-
-      {/* Standings Grid */}
       <div style={styles.gridContainer}>
-        {teams?.slice(0, 5).map((team, index) => {
-          const place = index + 1;
-          const isLast = place === 5;
+        {teams?.slice(0, 5).map((team: any, index: number) => {
+          const place = index + 1
+          const isLast = place === 5
 
           return (
             <div 
               key={team.abbreviation} 
               style={isLast ? styles.teamCell : { ...styles.teamCell, borderRight: '1px solid #e5e7eb' }}
             >
-              {/* Sub-Column 1: Place Number */}
               <div style={styles.placeColumn}>
                 <span style={styles.placeNum}>{place}</span>
               </div>
-
-              {/* Sub-Column 2: Team Data Info Track */}
               <div style={styles.dataColumn}>
                 <div style={styles.teamAbbr}>{team.abbreviation.toUpperCase()}</div>
                 <div style={styles.statsRow}>
@@ -138,7 +152,7 @@ const DivisionStandings: React.FC<DivisionStandingsProps> = ({ divisionName, tea
                 </div>
               </div>
             </div>
-          );
+          )
         })}
       </div>
     </div>

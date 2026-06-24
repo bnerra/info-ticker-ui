@@ -5,7 +5,6 @@ import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
 import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
 import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
 import DivisionStandings from './Components/DivisionStandings'
-import { mlbTeams } from './data/mlbTeams'
 import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
 import BattingLeaders from './Components/BattingLeaders'
@@ -44,19 +43,6 @@ const App = () => {
     concluded: <MLBConcludedGameCard values={games.lastGame} />,
     upcoming: <MLBUpcomingGameCard values={games.nextGame} />,
   }
-  
-  const formattedStandings = () => {
-    const abbMap = new Map(
-      mlbTeams.map((item: any) => [item.appId, item.abbreviation])
-    )
-
-    return games?.divisionStandings?.standings.map((team: any) => ({
-      ...team,
-      abbreviation: abbMap.get(team.teamId)
-    }))
-  }
-
-  const divisionName = games?.divisionStandings?.divisionName || 'NLC'
 
   const SECONDARY_MODULES = {
     inProgress: [
@@ -90,8 +76,7 @@ const App = () => {
     ],
     upcoming: [
       <DivisionStandings
-        divisionName={divisionName}
-        teams={formattedStandings()}
+        standingsData={games?.divisionStandings}
       />
     ]
   }
@@ -100,21 +85,17 @@ const App = () => {
     if (isGameInProgress) return
 
     const interval = setInterval(() => {
-      // setPrimaryRotationIndex((prevIndex) => (prevIndex + 1) % components.length)
       setPrimaryRotationIndex((prevIndex) => (prevIndex + 1))
     }, 20000)
 
-    // Clean up the interval when the component unmounts
     return () => clearInterval(interval)
   }, [isGameInProgress])
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // setCurrentSecondaryIndex((prevIndex) => (prevIndex + 1) % secondaryComponents.length)
       setCurrentSecondaryIndex((prevIndex) => (prevIndex + 1))
     }, 5000)
 
-    // Clean up the interval when the component unmounts
     return () => clearInterval(interval)
   }, [])
 
