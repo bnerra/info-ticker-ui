@@ -1,4 +1,4 @@
-import type { GameData } from "./NFLMatchupsCard"
+import type { GameData } from './NFLMatchupsCard'
 
 type GameCardProps = {
   awayLabel: string

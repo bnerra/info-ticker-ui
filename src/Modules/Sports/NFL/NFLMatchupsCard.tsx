@@ -1,3 +1,4 @@
+import * as React from 'react'
 import './nflStyle.css'
 import { GameCard } from './GameCard'
 
@@ -29,25 +30,9 @@ export type NFLMatchup = {
 }
 
 const NFLMatchupsCard = () => {
+  const [pageIndex, setPageIndex] = React.useState(0)
 
-  // const gameData: UpcomingGameData = values.values
-
-  // if (!gameData) {
-
-  //   return <div>No Matchups</div>
-  // }
-
-  // ATL    2-3
-  // ARI    3-2
-  // 11/15 12PM
-
-  // ATL     21
-  // ARI     14
-  // 2Q    06:24
-
-  // ATL     24
-  // ARI     20
-  // FINAL
+  const PAGE_SIZE = 8
 
   const games: NFLMatchup[] = [
   {
@@ -482,55 +467,46 @@ const NFLMatchupsCard = () => {
       inRedzone: false,
     }
   }
-]
+  ]
 
-const getGameFooter = (game: NFLMatchup) => {
+  const gamePages = React.useMemo(() => {
+    const pages = []
 
-  if (game.meta.status === 'LIVE') {
+    for (let i = 0; i < games.length; i += PAGE_SIZE) {
+      pages.push(games.slice(i, i + PAGE_SIZE))
+    }
 
-    return `${game.meta.quarter}Q  ${game.meta.timeRemaining}`
+    return pages
+  }, [games])
+
+  React.useEffect(() => {
+    if (gamePages.length <= 1) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setPageIndex((current: any) => (current + 1) % gamePages.length )
+    }, 10000)
+
+    return () => clearInterval(interval)
+  }, [gamePages.length])
+
+  const getGameFooter = (game: NFLMatchup) => {
+    if (game.meta.status === 'LIVE') {
+      return `${game.meta.quarter}Q  ${game.meta.timeRemaining}`
+    }
+
+    if (game.meta.status === 'FINAL') {
+      return 'FINAL'
+    }
+
+    return `${game.meta.date}  ${game.meta.startTime}`
   }
-
-  if (game.meta.status === 'FINAL') {
-
-    return 'FINAL'
-  }
-
-  return `${game.meta.date}  ${game.meta.startTime}`
-  
-}
-
-// {
-//     away: {
-//       abbreviation: 'ARI',
-//       city: 'Arizona',
-//       name: 'Cardinals',
-//       score: 24,
-//       wins: 4,
-//       losses: 2
-//     },
-//     home: {
-//       abbreviation: 'ATL',
-//       city: 'Atlanta',
-//       name: 'Falcons',
-//       score: 21,
-//       wins: 3,
-//       losses: 3
-//     },
-//     meta: {
-//       date: '11/15',
-//       startTime: '12:00 PM',
-//       quarter: 4,
-//       timeRemaining: '08:42',
-//       status: 'FINAL',
-//     }
-//   }
-
 
   return (
     <>
       <div className='nfl-games-overview'>
-        {games.map((game: NFLMatchup) => (
+        {gamePages[pageIndex].map((game: NFLMatchup) => (
           <GameCard
             awayLabel={game.away.abbreviation}
             awayValue={game.away.score}

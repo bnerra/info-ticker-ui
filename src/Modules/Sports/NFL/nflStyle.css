@@ -9,7 +9,7 @@
   grid-template-rows: repeat(4, 1fr);
   /* gap: 8px; */
   align-items: center;
-  padding-left: 12px;
+  padding-left: 6px;
   background-color: rgb(26, 34, 44);
 }
 
