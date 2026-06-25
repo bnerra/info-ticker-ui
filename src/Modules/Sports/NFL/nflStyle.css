@@ -41,11 +41,33 @@
 
 .game-card__footer {
   text-align: center;
-  font-size: 36px;
+  font-size: 28px;
   color: #b0b0b0;
 }
 
 .game-card.live .game-card__footer {
   color: #4ade80;
-  font-weight: 700;
+  font-weight: 600;
 }
+
+.possession-dot {
+  width: 26px;
+  height: 16px;
+  border-radius: 50%;
+  /* background: #4ade80; */
+  background: sienna;
+  flex-shrink: 0;
+}
+
+.possession-space {
+  width: 26px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.game-card.redzone {
+  border-color: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+

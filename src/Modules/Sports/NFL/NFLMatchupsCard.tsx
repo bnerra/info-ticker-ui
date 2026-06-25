@@ -1,7 +1,9 @@
 import './nflStyle.css'
 import { GameCard } from './GameCard'
 
-type TeamData = {
+type GameStatus = 'UPCOMING' | 'LIVE' | 'FINAL'
+
+export type TeamData = {
   abbreviation: string
   city: string
   name: string
@@ -10,15 +12,17 @@ type TeamData = {
   losses: number
 }
 
-type GameData = {
+export type GameData = {
   date: string
   startTime: string
   quarter: number
   timeRemaining: string
-  isLive: boolean
+  status: GameStatus
+  hasPossession?: string
+  inRedzone?: boolean
 }
 
-type NFLMatchup = {
+export type NFLMatchup = {
   away: TeamData
   home: TeamData
   meta: GameData
@@ -68,7 +72,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 4,
       timeRemaining: '08:42',
-      isLive: true,
+      status: 'FINAL',
+      hasPossession: 'away',
+      inRedzone: true,
     }
   },
   {
@@ -93,7 +99,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 3,
       timeRemaining: '05:11',
-      isLive: true,
+      status: 'FINAL',
+      hasPossession: 'away',
+      inRedzone: true,
     }
   },
   {
@@ -118,7 +126,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 2,
       timeRemaining: '01:48',
-      isLive: true,
+      status: 'FINAL',
+      hasPossession: 'away',
+      inRedzone: true,
     }
   },
   {
@@ -143,7 +153,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 4,
       timeRemaining: '02:37',
-      isLive: true,
+      status: 'LIVE',
+      hasPossession: 'away',
+      inRedzone: true,
     }
   },
   {
@@ -168,7 +180,9 @@ const NFLMatchupsCard = () => {
       startTime: '3:25 PM',
       quarter: 3,
       timeRemaining: '11:22',
-      isLive: true,
+      status: 'LIVE',
+      hasPossession: 'home',
+      inRedzone: true,
     }
   },
   {
@@ -193,7 +207,9 @@ const NFLMatchupsCard = () => {
       startTime: '3:25 PM',
       quarter: 4,
       timeRemaining: '06:19',
-      isLive: true,
+      status: 'LIVE',
+      hasPossession: 'home',
+      inRedzone: false,
     }
   },
   {
@@ -218,7 +234,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 2,
       timeRemaining: '09:56',
-      isLive: true,
+      status: 'LIVE',
+      hasPossession: 'away',
+      inRedzone: true,
     }
   },
   {
@@ -243,7 +261,9 @@ const NFLMatchupsCard = () => {
       startTime: '3:25 PM',
       quarter: 4,
       timeRemaining: '12:07',
-      isLive: false,
+      status: 'LIVE',
+      hasPossession: 'home',
+      inRedzone: false,
     }
   },
   {
@@ -268,7 +288,9 @@ const NFLMatchupsCard = () => {
       startTime: '3:25 PM',
       quarter: 3,
       timeRemaining: '03:44',
-      isLive: false,
+      status: 'LIVE',
+      hasPossession: 'home',
+      inRedzone: false,
     }
   },
   {
@@ -293,7 +315,9 @@ const NFLMatchupsCard = () => {
       startTime: '7:20 PM',
       quarter: 4,
       timeRemaining: '14:55',
-      isLive: false,
+      status: 'LIVE',
+      hasPossession: 'away',
+      inRedzone: false,
     }
   },
   {
@@ -318,7 +342,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 1,
       timeRemaining: '04:39',
-      isLive: false,
+      status: 'LIVE',
+      hasPossession: 'home',
+      inRedzone: true,
     }
   },
   {
@@ -343,7 +369,9 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 3,
       timeRemaining: '13:18',
-      isLive: false,
+      status: 'LIVE',
+      hasPossession: 'away',
+      inRedzone: false,
     }
   },
   {
@@ -368,7 +396,9 @@ const NFLMatchupsCard = () => {
       startTime: '3:25 PM',
       quarter: 4,
       timeRemaining: '09:01',
-      isLive: false,
+      status: 'UPCOMING',
+      hasPossession: 'home',
+      inRedzone: false,
     }
   },
   {
@@ -393,7 +423,9 @@ const NFLMatchupsCard = () => {
       startTime: '3:25 PM',
       quarter: 2,
       timeRemaining: '07:25',
-      isLive: false,
+      status: 'UPCOMING',
+      hasPossession: 'away',
+      inRedzone: true,
     }
   },
   {
@@ -418,7 +450,9 @@ const NFLMatchupsCard = () => {
       startTime: '7:20 PM',
       quarter: 4,
       timeRemaining: '03:52',
-      isLive: false,
+      status: 'UPCOMING',
+      hasPossession: 'away',
+      inRedzone: false,
     }
   },
   {
@@ -443,15 +477,54 @@ const NFLMatchupsCard = () => {
       startTime: '12:00 PM',
       quarter: 3,
       timeRemaining: '10:14',
-      isLive: false,
+      status: 'UPCOMING',
+      hasPossession: 'home',
+      inRedzone: false,
     }
   }
 ]
 
 const getGameFooter = (game: NFLMatchup) => {
+
+  if (game.meta.status === 'LIVE') {
+
+    return `${game.meta.quarter}Q  ${game.meta.timeRemaining}`
+  }
+
+  if (game.meta.status === 'FINAL') {
+
+    return 'FINAL'
+  }
+
+  return `${game.meta.date}  ${game.meta.startTime}`
   
-  return `${game.meta.quarter}Q  ${game.meta.timeRemaining}`
 }
+
+// {
+//     away: {
+//       abbreviation: 'ARI',
+//       city: 'Arizona',
+//       name: 'Cardinals',
+//       score: 24,
+//       wins: 4,
+//       losses: 2
+//     },
+//     home: {
+//       abbreviation: 'ATL',
+//       city: 'Atlanta',
+//       name: 'Falcons',
+//       score: 21,
+//       wins: 3,
+//       losses: 3
+//     },
+//     meta: {
+//       date: '11/15',
+//       startTime: '12:00 PM',
+//       quarter: 4,
+//       timeRemaining: '08:42',
+//       status: 'FINAL',
+//     }
+//   }
 
 
   return (
@@ -464,6 +537,8 @@ const getGameFooter = (game: NFLMatchup) => {
             homeLabel={game.home.abbreviation}
             homeValue={game.home.score}
             footer={getGameFooter(game)}
+            status={game.meta.status}
+            meta={game.meta}
           />
         ))}
       </div>
