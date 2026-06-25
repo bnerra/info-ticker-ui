@@ -9,6 +9,7 @@ import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
 import BattingLeaders from './Components/BattingLeaders'
 import PitchingLeaders from './Components/PitchingLeaders'
+import NFLMatchupsCard from './Modules/Sports/NFL/NFLMatchupsCard'
 
 type PrimaryView = 'inProgress' | 'concluded' | 'upcoming'
 
@@ -191,7 +192,8 @@ const App = () => {
           </div>
         </div>
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
-          {PrimaryComponent}
+          {/* {PrimaryComponent} */}
+          <NFLMatchupsCard />
         </div>
         <div style={{flexShrink: 0}}>
           {SecondaryComponent}

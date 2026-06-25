@@ -1,0 +1,51 @@
+
+.nfl-games-overview {
+  min-height: 0px;
+  overflow: hidden;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  /* gap: 8px; */
+  align-items: center;
+  padding-left: 12px;
+  background-color: rgb(26, 34, 44);
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 200px;
+  height: 160px;
+
+  padding: 20px 20px;
+
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+
+  color: white;
+  font-size: 40px
+}
+
+.game-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-weight: 600;
+}
+
+.game-card__footer {
+  text-align: center;
+  font-size: 36px;
+  color: #b0b0b0;
+}
+
+.game-card.live .game-card__footer {
+  color: #4ade80;
+  font-weight: 700;
+}
