@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { useLiveGames } from './hooks/useLiveGames'
-// import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
-// import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
-// import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
+import MLBConcludedGameCard from './Modules/Sports/MLB/MLBConcludedGameCard'
+import MLBUpcomingGameCard from './Modules/Sports/MLB/MLBUpcomingGameCard'
+import MLBCurrentGame from './Modules/Sports/MLB/MLBCurrentGame'
 import DivisionStandings from './Components/DivisionStandings'
 import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
 import BattingLeaders from './Components/BattingLeaders'
 import PitchingLeaders from './Components/PitchingLeaders'
-import NFLMatchupsCard from './Modules/Sports/NFL/NFLMatchupsCard'
+// import NFLMatchupsCard from './Modules/Sports/NFL/NFLMatchupsCard'
 
 type PrimaryView = 'inProgress' | 'concluded' | 'upcoming'
 
@@ -39,11 +39,11 @@ const App = () => {
         ? 'concluded'
         : 'upcoming'
 
-  // const PRIMARY_COMPONENTS = {
-  //   inProgress: <MLBCurrentGame values={games.currentGame} />,
-  //   concluded: <MLBConcludedGameCard values={games.lastGame} />,
-  //   upcoming: <MLBUpcomingGameCard values={games.nextGame} />,
-  // }
+  const PRIMARY_COMPONENTS = {
+    inProgress: <MLBCurrentGame values={games.currentGame} />,
+    concluded: <MLBConcludedGameCard values={games.lastGame} />,
+    upcoming: <MLBUpcomingGameCard values={games.nextGame} />,
+  }
 
   const SECONDARY_MODULES = {
     inProgress: [
@@ -164,7 +164,7 @@ const App = () => {
       ? 'warning'
       : 'error'
 
-  // const PrimaryComponent = PRIMARY_COMPONENTS[currentPrimaryModule]
+  const PrimaryComponent = PRIMARY_COMPONENTS[currentPrimaryModule]
   
   if (games.length <1) {
     return
@@ -192,8 +192,8 @@ const App = () => {
           </div>
         </div>
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0}}>
-          {/* {PrimaryComponent} */}
-          <NFLMatchupsCard />
+          {PrimaryComponent}
+          {/* <NFLMatchupsCard /> */}
         </div>
         <div style={{flexShrink: 0}}>
           {SecondaryComponent}
