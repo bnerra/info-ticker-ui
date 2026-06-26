@@ -9,9 +9,11 @@ import InningByInning from './Components/InningByInning'
 import { weatherIcons } from './data/weatherIcons'
 import BattingLeaders from './Components/BattingLeaders'
 import PitchingLeaders from './Components/PitchingLeaders'
+import MLBPostponedGameCard from './Modules/Sports/MLB/MLBPostponedGameCard'
+import PostponedDetails from './Components/PostponedDetails'
 // import NFLMatchupsCard from './Modules/Sports/NFL/NFLMatchupsCard'
 
-type PrimaryView = 'inProgress' | 'concluded' | 'upcoming'
+type PrimaryView = 'inProgress' | 'concluded' | 'upcoming' | 'postponed'
 
 const App = () => {
   const {
@@ -32,17 +34,27 @@ const App = () => {
 
   const isGameInProgress = games.viewStatus === 'inProgress'
 
+  const rotatingPrimaryModules: PrimaryView[] = [
+    'concluded',
+    'upcoming'
+  ]
+
+  if (games.postponedGame) {
+    rotatingPrimaryModules.push('postponed')
+  }
+
   const currentPrimaryModule: PrimaryView = 
     isGameInProgress
       ? 'inProgress'
-      : primaryRotationIndex % 2 === 0 
-        ? 'concluded'
-        : 'upcoming'
+      : rotatingPrimaryModules[
+        primaryRotationIndex % rotatingPrimaryModules.length
+      ]
 
   const PRIMARY_COMPONENTS = {
     inProgress: <MLBCurrentGame values={games.currentGame} />,
     concluded: <MLBConcludedGameCard values={games.lastGame} />,
     upcoming: <MLBUpcomingGameCard values={games.nextGame} />,
+    postponed: <MLBPostponedGameCard values={games.postponedGame} />
   }
 
   const SECONDARY_MODULES = {
@@ -78,6 +90,11 @@ const App = () => {
     upcoming: [
       <DivisionStandings
         standingsData={games?.divisionStandings}
+      />
+    ],
+    postponed: [
+      <PostponedDetails
+        gameData={games?.postponedGame}
       />
     ]
   }
