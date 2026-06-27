@@ -13,7 +13,7 @@ const MLBUPostponedGameCard = (values: any) => {
 
   return (
     <>
-      <div className='mlb-game-upcoming' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '1.5fr 1fr 1.5fr', height: '100%'}}>
+      <div className='mlb-game-upcoming' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', height: '100%'}}>
         {/* AWAY TEAM INFO */}
         <div style={{display: 'grid', gridTemplateRows: '1.8fr 0.5fr 1fr', backgroundColor: '#1a222c'}}>
           <div style={{alignContent: 'center'}}>
@@ -25,11 +25,12 @@ const MLBUPostponedGameCard = (values: any) => {
         </div>
 
         {/* LINESCORE */}
-        <div style={{display: 'grid', rowGap: '80px', alignContent: 'center', backgroundColor: '#1a222c'}}>
-          <div style={{fontSize: '55px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+        {/* <div style={{display: 'grid', rowGap: '80px', alignContent: 'center', backgroundColor: '#1a222c'}}> */}
+        <div style={{display: 'grid', backgroundColor: '#1a222c'}}>
+          <div style={{fontSize: '55px', fontFamily: 'Rajdhani', color: '#f5f7fa', alignContent: 'center'}}>
             <p>{gameData.metaData.originalDate}</p>
           </div>
-          <div style={{transform: 'rotate(-90deg)', fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '80px'}}>
+          <div style={{alignSelf: 'baseline', transform: 'rotate(-90deg)', fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
             <p>{gameData.metaData.status}</p>
           </div>
         </div>
