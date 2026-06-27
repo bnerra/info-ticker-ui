@@ -30,7 +30,7 @@ const MLBUPostponedGameCard = (values: any) => {
           <div style={{fontSize: '55px', fontFamily: 'Rajdhani', color: '#f5f7fa', alignContent: 'center'}}>
             <p>{gameData.metaData.originalDate}</p>
           </div>
-          <div style={{alignSelf: 'baseline', transform: 'rotate(-90deg)', fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
+          <div style={{alignSelf: 'baseline', transform: 'rotate(-90deg)', fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa', marginTop: '30px'}}>
             <p>{gameData.metaData.status}</p>
           </div>
         </div>
