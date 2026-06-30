@@ -12,6 +12,8 @@ import PitchingLeaders from './Components/PitchingLeaders'
 import MLBPostponedGameCard from './Modules/Sports/MLB/MLBPostponedGameCard'
 import PostponedDetails from './Components/PostponedDetails'
 // import NHLConcludedGameCard from './Modules/Sports/NHL/NHLConcludedGame'
+// import PositionLeaders from './Components/NHL/ForwardLeaders'
+// import PeriodByPeriod from './Components/NHL/PeriodByPeriod'
 // import NFLMatchupsCard from './Modules/Sports/NFL/NFLMatchupsCard'
 
 type PrimaryView = 'inProgress' | 'concluded' | 'upcoming' | 'postponed'
@@ -217,6 +219,18 @@ const App = () => {
         </div>
         <div style={{flexShrink: 0}}>
           {SecondaryComponent}
+          {/* <ForwardLeaders
+            leftSideForwards={games.nhl.forwardLeaders.away}
+            rightSideForwards={games.nhl.forwardLeaders.home}
+          /> */}
+          {/* <ForwardLeaders
+            leftSideForwards={games.nhl.goalieSummary.away}
+            rightSideForwards={games.nhl.goalieSummary.home}
+          /> */}
+          {/* <PeriodByPeriod
+            awayTeam={games.nhl.periodByPeriod.away || [null]}
+            homeTeam={games.nhl.periodByPeriod.home || [null]}
+          /> */}
         </div>
       </div>
     </>
