@@ -1,22 +1,26 @@
+# Description
+
+{pending}
+
 # Screenshots
 
 Example views of the live application.
 
 ## Upcoming Game with Standings
 
-{picture}
+<img width="893" height="577" alt="Screenshot 2026-07-05 052842" src="https://github.com/user-attachments/assets/0982efc8-5ce2-4fc8-954e-0f8c18eb47f1" />
 
 ## Completed Game with Inning by Inning
 
-{picture}
+<img width="893" height="573" alt="Screenshot 2026-07-05 052856" src="https://github.com/user-attachments/assets/5c369c5a-3333-4936-a831-ca91a0641f95" />
 
 ## Completed Game with Batting Leaders
 
-{picture}
+<img width="891" height="577" alt="Screenshot 2026-07-05 052742" src="https://github.com/user-attachments/assets/e610b6ef-49ba-4b92-8dcb-ebbbb3f39f6e" />
 
 ## Completed Game with Pitching Decisions
 
-{picture}
+<img width="895" height="577" alt="Screenshot 2026-07-05 052823" src="https://github.com/user-attachments/assets/353f747e-bff4-4010-b507-8ba1f254b3fb" />
 
 # React + TypeScript + Vite
 
