@@ -1,3 +1,23 @@
+# Screenshots
+
+Example views of the live application.
+
+## Upcoming Game with Standings
+
+{picture}
+
+## Completed Game with Inning by Inning
+
+{picture}
+
+## Completed Game with Batting Leaders
+
+{picture}
+
+## Completed Game with Pitching Decisions
+
+{picture}
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
