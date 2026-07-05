@@ -1,6 +1,176 @@
-# Description
+# Info Ticker UI
 
-{pending}
+A real-time sports dashboard built with **React + Vite + TypeScript**, designed for fixed-resolution displays and live data streaming.
+
+This UI connects to the Info Ticker API via **Server-Sent Events (SSE)** to render live MLB, NHL (COMING SOON), and system data.
+
+---
+
+## 🚀 Features
+
+- 📡 Real-time updates via SSE
+- ⚾ MLB live game dashboard
+- 🏒 NHL game tracking (COMING SOON)
+- 📊 Division standings & player stats modules
+- 🌤️ Weather display integration
+- 🧩 Modular dashboard layout system
+- 📺 Fixed-resolution kiosk-style UI (1024×600 optimized)
+
+---
+
+## 🧱 Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- Server-Sent Events (EventSource API)
+- Custom hooks architecture
+
+---
+
+## 🧠 Architecture Overview
+
+The UI is structured as a real-time dashboard composed of three primary sections:
+
+### 1. Top Bar (Status Row)
+- Weather
+- Clock
+- API connection status
+
+### 2. Primary Module (Dynamic Content)
+- Live game view
+- Concluded game view
+- Upcoming game preview
+- Automatically rotates based on game stat
+
+### 3. Secondary Modules
+- Batting leaders
+- Pitching leaders
+- Division standings
+- Inning by Inning
+- Supporting data panels
+
+---
+
+## 📡 Data Flow
+
+The UI connects to the backend using SSE:
+
+API (Render)
+
+↓
+
+SSE Stream (/api/live-games)
+
+↓
+
+React useLiveGames hook
+
+↓
+
+UI state updates
+
+---
+
+## 🔌 Environment Variables
+
+Create a `.env.production` file:
+
+```bash
+VITE_API_URL=https://your-api.onrender.com
+```
+
+---
+
+## 🧩 Key Hooks
+
+### Live Game Data
+
+```TypeScript
+useLiveGames()
+```
+
+Connects to SSE stream and returns live game state.
+
+---
+
+## 🖥️ Running Locally
+
+### Install dependencies
+```bash
+npm install
+```
+
+### Start dev server
+```bash
+npm run dev
+```
+
+### Build production
+```bash
+npm run build
+```
+
+### Preview build
+```bash
+npm run preview
+```
+
+---
+
+## 🌐 Deployment (Cloudflare Pages)
+
+Recommended deployment platform: **Cloudflare Pages**
+
+### Build Settings:
+
+- Build command:
+
+```bash
+npm install && npm run build
+
+```
+
+- Output directory:
+
+```bash
+dist
+```
+
+### Environment variable:
+
+```bash
+VITE_API_URL=https://your-api.onrender.com
+```
+
+---
+
+## 📺 Design Philosophy
+
+This project is intentionally designed as a **fixed-resolution dashboard system**, optimized for:
+
+- 1024x600 displays (primary target)
+- kiosk mode screens
+- TV-style dashboards
+- secondary browser display panels
+
+To maintain a consistent layout across all screen sizes, the UI scales aas a single unit rather than relying on traditional responsive breakpoints.
+
+---
+
+## ⚠️ Notes
+
+- Requires backend API to be running for live data
+- SSE connection will auto-reconnect on failure
+- Layout is not traditional responsive web designn (intentional)
+
+---
+
+## 📄 License
+
+MIT
+
+---
 
 # Screenshots
 
@@ -21,78 +191,3 @@ Example views of the live application.
 ## Completed Game with Pitching Decisions
 
 <img width="895" height="577" alt="Screenshot 2026-07-05 052823" src="https://github.com/user-attachments/assets/353f747e-bff4-4010-b507-8ba1f254b3fb" />
-
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-"# info-ticker-ui" 
