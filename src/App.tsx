@@ -24,10 +24,14 @@ const App = () => {
     connected
   } = useLiveGames()
 
+  const DESIGN_WIDTH = 1024
+  const DESIGN_HEIGHT = 600
+
   const { weatherDateTime } = games
 
   const [primaryRotationIndex, setPrimaryRotationIndex] = useState(0)
   const [currentSecondaryIndex, setCurrentSecondaryIndex] = useState(0)
+  const [scale, setScale] = useState(1)
 
   const ageSeconds = Math.floor(
     (Date.now() - games.lastUpdated) / 1000
@@ -101,6 +105,19 @@ const App = () => {
       />
     ]
   }
+
+  useEffect(() => {
+    const updateScale = () => {
+      const scaleX = window.innerWidth / DESIGN_WIDTH
+      const scaleY = window.innerHeight / DESIGN_HEIGHT
+      setScale(Math.min(scaleX, scaleY))
+    }
+
+    updateScale()
+    window.addEventListener('resize', updateScale)
+
+    return () => window.removeEventListener('resize', updateScale)
+  }, [])
 
   useEffect(() => {
     if (isGameInProgress) return
@@ -198,6 +215,15 @@ const App = () => {
 
   return (
     <>
+    <div
+      style={{
+        width: DESIGN_WIDTH,
+        height: DESIGN_HEIGHT,
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+        position: 'absolute'
+      }}
+    >
       <div className='container' style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
         <div style={{ fontSize: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', backgroundColor: '#1a222c', height: '50px', flexShrink: 0, alignContent: 'center'}}>
           <div className='weather-details'>
@@ -240,6 +266,8 @@ const App = () => {
           /> */}
         </div>
       </div>
+    </div>
+      
     </>
   )
 }
