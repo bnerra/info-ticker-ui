@@ -185,6 +185,12 @@ const App = () => {
       : 'error'
 
   const PrimaryComponent = PRIMARY_COMPONENTS[currentPrimaryModule]
+
+  const localTime = new Date().toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  })
   
   if (games.length <1) {
     return
@@ -205,7 +211,7 @@ const App = () => {
             />
             <p style={{textAlign: 'left'}}> {weatherDateTime?.temperature} | {weatherDateTime?.forecast}</p>
           </div>
-          <p>{weatherDateTime?.date} {`\u00B7`} {weatherDateTime?.time}</p>
+          <p style={{paddingTop: '4px'}}>{weatherDateTime?.date} {`\u00B7`} {localTime}</p>
           <div className='api-status'>
             <div className={`status-dot ${statusHealth}`}></div>
             <span>{ageSeconds}s</span>
@@ -216,6 +222,7 @@ const App = () => {
           {/* <NFLMatchupsCard /> */}
           {/* <MLBPostponedGameCard values={games.postponedGame} /> */}
           {/* <NHLConcludedGameCard values={games.nhl.nhlLastGame} /> */}
+          {/* <MLBConcludedGameCard values={games.lastGame} /> */}
         </div>
         <div style={{flexShrink: 0}}>
           {SecondaryComponent}
