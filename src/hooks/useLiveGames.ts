@@ -20,11 +20,13 @@ export function useLiveGames() {
         setGames(parsed)
       } catch (err) {
         console.error('Failed to parse SSE data:', err)
+        console.log('Failed to parse SSE data:', err)
       }
     }
 
     eventSource.onerror = (error: any) => {
       setConnected(false)
+      console.log('SSE connection error: ', error)
       console.error('SSE connection error: ', error)
       eventSource.close()
     }
