@@ -24,6 +24,12 @@ const App = () => {
     connected
   } = useLiveGames()
 
+
+  if (!games) {
+    return
+  }
+
+  
   const DESIGN_WIDTH = 1024
   const DESIGN_HEIGHT = 600
 
@@ -208,10 +214,6 @@ const App = () => {
     minute: '2-digit',
     hour12: true
   })
-  
-  if (games.length <1) {
-    return
-  }
 
   return (
     <>
