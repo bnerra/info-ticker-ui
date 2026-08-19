@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 import './App.css'
 import { useLiveGames } from './hooks/useLiveGames'
@@ -21,21 +23,24 @@ type PrimaryView = 'inProgress' | 'concluded' | 'upcoming' | 'postponed'
 const App = () => {
   const {
     games,
-    connected
+    connected,
+    ageSeconds
   } = useLiveGames()
+
+  // if (!games) return
 
   const DESIGN_WIDTH = 1024
   const DESIGN_HEIGHT = 600
 
-  const { weatherDateTime } = games
+  const { weatherDateTime }: any = games
 
   const [primaryRotationIndex, setPrimaryRotationIndex] = useState(0)
   const [currentSecondaryIndex, setCurrentSecondaryIndex] = useState(0)
   const [scale, setScale] = useState(1)
 
-  const ageSeconds = Math.floor(
-    (Date.now() - games.lastUpdated) / 1000
-  )
+  // const ageSeconds = Math.floor(
+  //   (Date.now() - games.lastUpdated) / 1000
+  // )
 
   console.log({connected, games, ageSeconds})
 
@@ -161,8 +166,6 @@ const App = () => {
       case 53:
       case 55:
         return weatherIcons['raindrops']
-      case 56:
-      case 57:
       case 66:
       case 67:
         return weatherIcons['freezingRain']
@@ -194,12 +197,12 @@ const App = () => {
     }
   }
 
-  const statusHealth =
-    ageSeconds < 60
+  const statusHealth = ageSeconds &&
+    (ageSeconds < 60
       ? 'good'
       : ageSeconds < 240
       ? 'warning'
-      : 'error'
+      : 'error')
 
   const PrimaryComponent = PRIMARY_COMPONENTS[currentPrimaryModule]
 
@@ -209,9 +212,9 @@ const App = () => {
     hour12: true
   })
   
-  if (games.length <1) {
-    return
-  }
+  // if (games.length <1) {
+  //   return
+  // }
 
   return (
     <>
