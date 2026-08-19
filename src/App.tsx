@@ -28,7 +28,8 @@ const App = () => {
     games,
     connected,
     ageSeconds,
-    hasReceivedData
+    hasReceivedData,
+    retryCount
   } = useLiveGames()
 
   const [primaryRotationIndex, setPrimaryRotationIndex] = useState(0)
@@ -212,7 +213,7 @@ const App = () => {
     }
   }
 
-  const statusHealth = ageSeconds &&
+  const statusHealth = ageSeconds != null &&
     (ageSeconds < 60
       ? 'good'
       : ageSeconds < 240
@@ -253,6 +254,15 @@ const App = () => {
           </div>
           <p style={{paddingTop: '4px'}}>{weatherDateTime?.date} {`\u00B7`} {localTime}</p>
           <div className='api-status'>
+            {!connected && (
+              <div
+                style={{
+                  color: '#FFEA00'
+                }}
+              >
+                <p>{retryCount <= 1 ? 'Lost connection - reconnecting...' : `Still trying (attempt ${retryCount})...`}</p>
+              </div>
+            )}
             <div className={`status-dot ${statusHealth}`}></div>
             <span>{ageSeconds}s</span>
           </div>

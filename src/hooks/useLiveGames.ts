@@ -35,6 +35,7 @@ export function useLiveGames() {
   const [games, setGames] = useState<any>({})
   const [connected, setConnected] = useState<boolean>(false)
   const [lastMessageAt, setLastMessageAt] = useState<number | null>(null)
+  const [retryCount, setRetryCount] = useState<number>(0)
 
   const retryCountRef = useRef(0)
   const eventSourceRef = useRef<EventSource | null>(null)
@@ -62,6 +63,7 @@ export function useLiveGames() {
         console.log('[SSE] Connected', new Date().toISOString())
         setConnected(true)
         retryCountRef.current = 0 // reset backoff on successful connect
+        setRetryCount(0)
       }
 
       eventSource.onmessage = (event) => {
@@ -88,6 +90,7 @@ export function useLiveGames() {
           MAX_RETRY_DELAY
         )
         retryCountRef.current += 1
+        setRetryCount(retryCountRef.current)
 
         console.log(`[SSE] Reconnecting in ${delay}ms (attempt ${retryCountRef.current})`)
         reconnectTimeoutRef.current = setTimeout(() => {
@@ -135,6 +138,7 @@ export function useLiveGames() {
     games,
     connected,
     ageSeconds,
-    hasReceivedData: lastMessageAt !== null
+    hasReceivedData: lastMessageAt !== null,
+    retryCount
   }
 }
