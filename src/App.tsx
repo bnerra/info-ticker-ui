@@ -20,31 +20,20 @@ import PostponedDetails from './Components/PostponedDetails'
 
 type PrimaryView = 'inProgress' | 'concluded' | 'upcoming' | 'postponed'
 
+const DESIGN_WIDTH = 1024
+const DESIGN_HEIGHT = 600
+
 const App = () => {
   const {
     games,
     connected,
-    ageSeconds
+    ageSeconds,
+    hasReceivedData
   } = useLiveGames()
-
-
-  if (!games) {
-    return
-  }
-
-  
-  const DESIGN_WIDTH = 1024
-  const DESIGN_HEIGHT = 600
-
-  const { weatherDateTime }: any = games
 
   const [primaryRotationIndex, setPrimaryRotationIndex] = useState(0)
   const [currentSecondaryIndex, setCurrentSecondaryIndex] = useState(0)
   const [scale, setScale] = useState(1)
-
-  // const ageSeconds = Math.floor(
-  //   (Date.now() - games.lastUpdated) / 1000
-  // )
 
   console.log({connected, games, ageSeconds})
 
@@ -55,16 +44,73 @@ const App = () => {
     'upcoming'
   ]
 
-  if (games.postponedGame) {
-    rotatingPrimaryModules.push('postponed')
-  }
-
   const currentPrimaryModule: PrimaryView = 
     isGameInProgress
       ? 'inProgress'
       : rotatingPrimaryModules[
         primaryRotationIndex % rotatingPrimaryModules.length
       ]
+
+
+  useEffect(() => {
+    const updateScale = () => {
+      const scaleX = window.innerWidth / DESIGN_WIDTH
+      const scaleY = window.innerHeight / DESIGN_HEIGHT
+      setScale(Math.min(scaleX, scaleY))
+    }
+
+    updateScale()
+    window.addEventListener('resize', updateScale)
+
+    return () => window.removeEventListener('resize', updateScale)
+  }, [])
+
+  useEffect(() => {
+    if (isGameInProgress) return
+
+    const interval = setInterval(() => {
+      setPrimaryRotationIndex((prevIndex) => (prevIndex + 1))
+    }, 20000)
+
+    return () => clearInterval(interval)
+  }, [isGameInProgress])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSecondaryIndex((prevIndex) => (prevIndex + 1))
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    setCurrentSecondaryIndex(0)
+  }, [currentPrimaryModule])
+
+  if (!hasReceivedData) {
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#1a222c',
+          color: '#fff',
+          fontSize: '24px',
+        }}
+      >
+        Connecting to live data...
+      </div>
+    )
+  }
+
+  const { weatherDateTime }: any = games
+
+  if (games.postponedGame) {
+    rotatingPrimaryModules.push('postponed')
+  }
 
   const PRIMARY_COMPONENTS = {
     inProgress: <MLBCurrentGame values={games.currentGame} />,
@@ -114,41 +160,6 @@ const App = () => {
       />
     ]
   }
-
-  useEffect(() => {
-    const updateScale = () => {
-      const scaleX = window.innerWidth / DESIGN_WIDTH
-      const scaleY = window.innerHeight / DESIGN_HEIGHT
-      setScale(Math.min(scaleX, scaleY))
-    }
-
-    updateScale()
-    window.addEventListener('resize', updateScale)
-
-    return () => window.removeEventListener('resize', updateScale)
-  }, [])
-
-  useEffect(() => {
-    if (isGameInProgress) return
-
-    const interval = setInterval(() => {
-      setPrimaryRotationIndex((prevIndex) => (prevIndex + 1))
-    }, 20000)
-
-    return () => clearInterval(interval)
-  }, [isGameInProgress])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSecondaryIndex((prevIndex) => (prevIndex + 1))
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    setCurrentSecondaryIndex(0)
-  }, [currentPrimaryModule])
 
   const availableSecondaryModules = SECONDARY_MODULES[currentPrimaryModule]
 

@@ -134,6 +134,7 @@ export function useLiveGames() {
   return {
     games,
     connected,
-    ageSeconds
+    ageSeconds,
+    hasReceivedData: lastMessageAt !== null
   }
 }
