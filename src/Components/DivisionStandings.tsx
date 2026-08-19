@@ -19,7 +19,7 @@ const formattedStandings = (standings: any[]) => {
 
   return standings.map((team: any) => ({
     ...team,
-    abbreviation: abbMap.get(team.teamId)
+    abbreviation: team.teamId ? abbMap.get(team.teamId) : '--'
   }))
 }
 
