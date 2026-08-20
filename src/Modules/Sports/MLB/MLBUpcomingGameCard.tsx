@@ -12,6 +12,16 @@ const MLBUpcomingGameCard = (values: any) => {
   const awayLogo = mlbTeams.filter((team: any) => team.appId === gameData?.awayTeam?.teamId)[0].logo || ''
   const homeLogo = mlbTeams.filter((team: any) => team.appId === gameData?.homeTeam?.teamId)[0].logo || ''
 
+  const formatLocalTime = (isoString: string) => {
+    const date = new Date(isoString)
+
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+  })
+}
+
   return (
     <>
       <div className='mlb-game-upcoming' style={{flex: 1, minHeight: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '1.5fr 1fr 1.5fr', height: '100%'}}>
@@ -39,7 +49,8 @@ const MLBUpcomingGameCard = (values: any) => {
             <p>@</p>
           </div>
           <div style={{fontSize: '60px', fontFamily: 'Rajdhani', color: '#f5f7fa'}}>
-            <p>{gameData.metaData.time}</p>
+            {/* <p>{gameData.metaData.time}</p> */}
+            <p>{formatLocalTime(gameData.metaData.dateISO)}</p>
           </div>
         </div>
 

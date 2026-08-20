@@ -44,6 +44,7 @@ export interface UpcomingGameData {
   metaData: {
     date: string
     time: string
+    dateISO: string
   }
   awayTeam: {
     name: string
