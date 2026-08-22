@@ -25,7 +25,7 @@ const formattedStandings = (standings: any[]) => {
 
 const DivisionStandings: React.FC<DivisionStandingsProps> = ({ standingsData }) => {
 
-  if (!(standingsData.length > 0)) {
+  if (!standingsData) {
 
     return <></>
   }
