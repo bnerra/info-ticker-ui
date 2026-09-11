@@ -1,46 +1,54 @@
-import type { GameData } from './NFLMatchupsCard'
+import type { NFLGame } from './types'
 
 type GameCardProps = {
-  awayLabel: string
-  awayValue: string | number
-  homeLabel: string
-  homeValue: string | number
-  footer: string
-  status: string
-  meta: GameData
+  game: NFLGame
+  variant?: 'tile' | 'hero'
 }
 
-export const GameCard = ({
-  awayLabel,
-  awayValue,
-  homeLabel,
-  homeValue,
-  footer,
-  status,
-  meta,
-}: GameCardProps) => {
-  const isLive = status === 'LIVE'
-  const awayPossession = meta.hasPossession === 'away' && status === 'LIVE'
-  const homePossession = meta.hasPossession === 'home' && status === 'LIVE'
-  const inRedzone = meta.inRedzone && status === 'LIVE'
+const formatKickoff = (iso: string) =>
+  new Date(iso).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit'
+  })
+
+export const GameCard = ({game, variant = 'tile'}: GameCardProps) => {
+  const isLive = game.status === 'live'
+  const awayPossession = isLive && game.possessionTeamId === game.awayTeam.id
+  const homePossession = isLive && game.possessionTeamId === game.homeTeam.id
+  const inRedZone = Boolean(isLive && game.isRedZone)
+
+  const footerPrimary = 
+    game.status === 'preview'
+      ? formatKickoff(game.kickoff)
+      : game.status === 'summary'
+        ? 'FINAL'
+        : `${game.period ? `${game.period}Q ` : ''}${game.displayClock || ''}`.trim()
+
+  const footerSecondary = isLive ? (game.situationText || game.statusDetail) : null
 
   return (
-    <div className={`game-card ${isLive ? 'live' : ''} ${inRedzone ? 'redzone' : ''}`}>
+    <div className={`game-card ${variant === 'hero' ? 'hero' : ''} ${isLive ? 'live' : ''} ${inRedZone ? 'redzone' : ''}`}>
       <div className='game-card__row'>
-        <span>{awayLabel}</span>
-        <span>{awayValue}</span>
+        <span>{game.awayTeam.abbreviation}</span>
+        <span>{game.awayTeam.score ?? '-'}</span>
         {awayPossession ? <span className='possession-dot' /> : <span className='possession-space' />}
       </div>
 
       <div className='game-card__row'>
-        <span>{homeLabel}</span>
-        <span>{homeValue}</span>
+        <span>{game.homeTeam.abbreviation}</span>
+        <span>{game.homeTeam.score ?? '-'}</span>
         {homePossession ? <span className='possession-dot' /> : <span className='possession-space' />}
       </div>
 
       <div className='game-card__footer'>
-        {footer}
+        {footerPrimary}
       </div>
+
+      {footerSecondary && (
+        <div className='game-card__footer-secondary'>
+          {footerSecondary}
+        </div>
+      )}
     </div>
   )
 }

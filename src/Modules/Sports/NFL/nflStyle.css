@@ -71,3 +71,31 @@
   box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
 }
 
+.game-card__footer-secondary {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.game-card.hero {
+  width: 700px;
+  height: 400px;
+  font-size: 64px;
+  padding: 40px 60px;
+}
+
+.game-card.hero .game-card__footer {
+  font-size: 40px;
+}
+
+.game-card.hero .game-card__footer-secondary {
+  font-size: 28px;
+}
+
+.game-card.hero .possession-dot,
+.game-card.hero .possession-space {
+  width: 40px;
+  height: 24px;
+}
+
