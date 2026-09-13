@@ -10,6 +10,20 @@ export type NFLTeam = {
   score?: string
 }
 
+export type NFLStatLeaderEntry = {
+  playerName: string
+  teamId: string
+  teamAbbreviation: string
+  displayValue: string
+  value: number
+}
+
+export type NFLStatLeaderGroup = {
+  category: string
+  displayName: string
+  entries: NFLStatLeaderEntry[]
+}
+
 export type NFLGame = {
   id: string
   status: NFLGameStatus
@@ -22,4 +36,5 @@ export type NFLGame = {
   isRedZone?: boolean
   homeTeam: NFLTeam
   awayTeam: NFLTeam
+  leaders: NFLStatLeaderGroup[]
 }

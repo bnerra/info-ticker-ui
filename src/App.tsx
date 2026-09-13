@@ -28,7 +28,7 @@ const App = () => {
 
   const [selectedSport, setSelectedSport] = useState<Sport>(() => {
     const stored = localStorage.getItem('selectedSport')
-    return (stored as Sport) || 'mlb'
+    return (stored as Sport) || 'nfl'
   })
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const App = () => {
 
   const VIEWS: Record<Sport, JSX.Element> = {
     mlb: <MLBView games={games} />,
-    nfl: <NFLView games={games.nfl?.games || []} />,
+    nfl: <NFLView games={games.nfl?.games || []} weeklyLeaders={games.nfl?.weeklyLeaders || []} />,
     nhl: <NHLView games={games.nhl} />
   }
 

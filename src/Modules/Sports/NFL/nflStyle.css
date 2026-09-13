@@ -102,3 +102,60 @@
 .game-card__row {
   padding-left: 8px;
 }
+
+.stat-leaders-panel {
+  padding: 10px 20px;
+  border-top: 2px solid #2a2a2a;
+  color: white;
+}
+
+.stat-leaders-panel__title {
+  font-weight: 700;
+  font-size: 15px;
+  color: #999;
+  margin-bottom: 6px;
+}
+
+.stat-leaders-panel__entries {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stat-leaders-panel__rows {
+  display: flex;
+  flex: 1;
+  gap: 36px;
+}
+
+.stat-leaders-panel__row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.stat-leaders-panel__rank {
+  color: #666;
+  width: 16px;
+}
+
+.stat-leaders-panel__label {
+  font-size: 11px;
+  color: #777;
+}
+
+.stat-leaders-panel__player {
+  flex: 1;
+  font-weight: 600;
+}
+
+.stat-leaders-panel__value {
+  color: #bbb;
+}
+
+.stat-leaders-panel__empty {
+  font-size: 14px;
+  color: #777;
+  font-style: italic;
+}
