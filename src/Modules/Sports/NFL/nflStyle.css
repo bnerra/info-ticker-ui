@@ -19,7 +19,7 @@
   justify-content: space-between;
 
   width: 200px;
-  height: 160px;
+  height: 155px;
 
   padding: 20px 20px;
 
@@ -107,6 +107,8 @@
   padding: 10px 20px;
   border-top: 2px solid #2a2a2a;
   color: white;
+  height: 140px;
+  overflow: hidden;
 }
 
 .stat-leaders-panel__title {
@@ -151,6 +153,7 @@
 }
 
 .stat-leaders-panel__value {
+
   color: #bbb;
 }
 
