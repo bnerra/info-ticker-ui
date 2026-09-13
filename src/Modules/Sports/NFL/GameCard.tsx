@@ -1,4 +1,5 @@
 import type { NFLGame } from './types'
+import { getTeamAccentColor } from './colorUtils'
 
 type GameCardProps = {
   game: NFLGame
@@ -16,6 +17,8 @@ export const GameCard = ({game, variant = 'tile'}: GameCardProps) => {
   const awayPossession = isLive && game.possessionTeamId === game.awayTeam.id
   const homePossession = isLive && game.possessionTeamId === game.homeTeam.id
   const inRedZone = Boolean(isLive && game.isRedZone)
+  const awayAccent = getTeamAccentColor(game.awayTeam.color, game.awayTeam.alternateColor)
+  const homeAccent = getTeamAccentColor(game.homeTeam.color, game.homeTeam.alternateColor)
 
   const footerPrimary = 
     game.status === 'preview'
@@ -28,13 +31,13 @@ export const GameCard = ({game, variant = 'tile'}: GameCardProps) => {
 
   return (
     <div className={`game-card ${variant === 'hero' ? 'hero' : ''} ${isLive ? 'live' : ''} ${inRedZone ? 'redzone' : ''}`}>
-      <div className='game-card__row'>
+      <div className='game-card__row' style={{ borderLeft: `4px solid ${awayAccent}` }}>
         <span>{game.awayTeam.abbreviation}</span>
         <span>{game.awayTeam.score ?? '-'}</span>
         {awayPossession ? <span className='possession-dot' /> : <span className='possession-space' />}
       </div>
 
-      <div className='game-card__row'>
+      <div className='game-card__row' style={{ borderLeft: `4px solid ${homeAccent}` }}>
         <span>{game.homeTeam.abbreviation}</span>
         <span>{game.homeTeam.score ?? '-'}</span>
         {homePossession ? <span className='possession-dot' /> : <span className='possession-space' />}

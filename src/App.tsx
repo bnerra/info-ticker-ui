@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, type JSX } from 'react'
 import './App.css'
 import { useLiveGames } from './hooks/useLiveGames'

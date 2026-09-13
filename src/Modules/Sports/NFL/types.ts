@@ -5,6 +5,8 @@ export type NFLTeam = {
   abbreviation: string
   displayName: string
   logo: string
+  color?: string
+  alternateColor?: string
   score?: string
 }
 
