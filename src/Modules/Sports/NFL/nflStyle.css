@@ -105,11 +105,19 @@
 
 .stat-leaders-panel {
   padding: 10px 20px;
+  color: white;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* .stat-leaders-panel {
+  padding: 10px 20px;
   border-top: 2px solid #2a2a2a;
   color: white;
   height: 140px;
   overflow: hidden;
-}
+} */
 
 .stat-leaders-panel__title {
   font-weight: 700;
@@ -161,4 +169,51 @@
   font-size: 14px;
   color: #777;
   font-style: italic;
+}
+
+.nfl-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border-left: 2px solid #2a2a2a;
+  display: flex;
+  flex-direction: column;
+}
+
+.nfl-sidebar.hero {
+  width: 350px;
+}
+
+.nfl-ticker {
+  height: 55px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #0f0f0f;
+  display: flex;
+  align-items: center;
+  border-top: 2px solid #2a2a2a;
+}
+
+.nfl-ticker__track {
+  display: inline-flex;
+  animation: nfl-ticker-scroll 40s linear infinite;
+}
+
+.nfl-ticker__item {
+  display: inline-block;
+  padding: 0 32px;
+  font-size: 26px;
+  color: white;
+  white-space: nowrap;
+}
+
+.nfl-ticker__empty {
+  padding: 0 20px;
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+}
+
+@keyframes nfl-ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }

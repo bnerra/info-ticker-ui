@@ -124,7 +124,7 @@ const App = () => {
 
   const VIEWS: Record<Sport, JSX.Element> = {
     mlb: <MLBView games={games} />,
-    nfl: <NFLView games={games.nfl?.games || []} weeklyLeaders={games.nfl?.weeklyLeaders || []} />,
+    nfl: <NFLView games={games.nfl?.games || []} weeklyLeaders={games.nfl?.weeklyLeaders || []} feed={games.nfl?.feed || []} />,
     nhl: <NHLView games={games.nhl} />
   }
 

@@ -38,3 +38,13 @@ export type NFLGame = {
   awayTeam: NFLTeam
   leaders: NFLStatLeaderGroup[]
 }
+
+export type NFLFeedEntry = {
+  id: string
+  gameId: string
+  teamAbbreviation: string
+  text: string
+  scoreValue: number
+  statYardage: number
+  timestamp: number
+}
